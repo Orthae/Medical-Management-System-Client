@@ -1,13 +1,13 @@
 package orthae.com.github.medicalmanagementsystem.client;
 
-import org.springframework.boot.SpringApplication;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class MedicalManagementSystemClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		Application.launch(JavaFxBoot.class, args);
 	}
 
 }

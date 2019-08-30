@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.login.LoginWindowController">
+
+    <ImageView fx:id="loginImage"/>
+    <VBox>
+        <HBox>
+            <Label text="Username:"/>
+            <TextField/>
+        </HBox>
+        <HBox>
+            <Label text="Password:"/>
+            <TextField/>
+        </HBox>
+        <HBox>
+            <Button text="Login"/>
+            <Button text="Exit"/>
+        </HBox>
+         </VBox>
+</HBox>
