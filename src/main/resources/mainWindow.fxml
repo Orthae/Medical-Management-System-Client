@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<TabPane xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="orthae.com.github.medicalmanagementsystem.client.MainWindow"
+         prefHeight="800.0" prefWidth="1200.0">
+<Tab text="Employees" closable="false">
+    <fx:include source="employeesWindow.fxml"/>
+</Tab>
+
+</TabPane>

@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EmployeesWindowController"
-            prefHeight="400.0" prefWidth="600.0">
-    <TableView>
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EmployeesWindowController" stylesheets="style.css">
+    <top>
+        <GridPane styleClass="employees-search-box">
+            <Label text="Name" GridPane.columnIndex="0" />
+            <TextField fx:id="nameTextfield" GridPane.columnIndex="1"/>
+            <Label text="Surname" GridPane.columnIndex="2" />
+            <TextField fx:id="surnameTextfield" GridPane.columnIndex="3"/>
+            <Label text="Username" GridPane.columnIndex="4" />
+            <TextField fx:id="usernameTextfield" GridPane.columnIndex="5"/>
+            <Label text="Email" GridPane.columnIndex="6" />
+            <TextField fx:id="emailTextfield" GridPane.columnIndex="7"/>
+            <Button text="Search" onAction="#search" GridPane.columnIndex="8"/>
+            <Button text="Clear" onAction="#clear" GridPane.columnIndex="9"/>
+        </GridPane>
+    </top>
 
-    </TableView>
-    <VBox>
+    <center>
+        <HBox>
+            <TableView HBox.hgrow="ALWAYS" fx:id="tableView">
+                <columns>
+                    <TableColumn fx:id="nameColumn"  text="Name"/>
+                    <TableColumn fx:id="surnameColumn" text="Surname"/>
+                    <TableColumn fx:id="usernameColumn" text="Username"/>
+                    <TableColumn fx:id="emailColumn" text="Email"/>
+                </columns>
+            </TableView>
+        <VBox styleClass="employees-button-box">
+            <Button text="Add" styleClass="employees-button"/>
+            <Button text="Edit" styleClass="employees-button"/>
+            <Button text="Delete" onAction="#delete" styleClass="employees-button"/>
+            <Button/>
+        </VBox>
 
-    </VBox>
+        </HBox>
+
+    </center>
 
 
-</HBox>
+</BorderPane>
