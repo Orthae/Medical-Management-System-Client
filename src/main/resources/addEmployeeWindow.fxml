@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="addEmployeeWindow" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.AddEmployeeWindowController"
+            stylesheets="style.css" styleClass="add-edit-fields">
+
+    <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="nameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label text="Surname" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <TextField fx:id="surnameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField fx:id="usernameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="Email" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <TextField fx:id="emailTextfield" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <Button text="Add" onAction="#add" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <Button text="Cancel" onAction="#close" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    </HBox>
+
+</GridPane>

@@ -1,13 +1,25 @@
 package orthae.com.github.medicalmanagementsystem.client.employees;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
+import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
 
-import java.util.Optional;
+import java.io.IOException;
 
 @Component
 public class EmployeesWindowController {
+
+    @FXML
+    BorderPane employeesWindow;
 
     @FXML
     TextField nameTextfield;
@@ -17,7 +29,6 @@ public class EmployeesWindowController {
     TextField usernameTextfield;
     @FXML
     TextField emailTextfield;
-
 
     @FXML
     TableView<EmployeeDto> tableView;
@@ -31,9 +42,11 @@ public class EmployeesWindowController {
     TableColumn<EmployeeDto, String> emailColumn;
 
     private EmployeesService employeesService;
+    private ApplicationContext context;
 
-    public EmployeesWindowController(EmployeesService employeesService) {
+    public EmployeesWindowController(EmployeesService employeesService, ApplicationContext context) {
         this.employeesService = employeesService;
+        this.context = context;
     }
 
     public void initialize() {
@@ -45,6 +58,7 @@ public class EmployeesWindowController {
         usernameColumn.setMinWidth(100);
         emailColumn.setCellValueFactory(param -> param.getValue().getEmail());
         emailColumn.setMinWidth(200);
+        search();
     }
 
 
@@ -57,14 +71,14 @@ public class EmployeesWindowController {
         tableView.getItems().addAll(employeesService.find(name, surname, username, email));
     }
 
-    public void clear(){
+    public void clear() {
         nameTextfield.clear();
         surnameTextfield.clear();
         usernameTextfield.clear();
         emailTextfield.clear();
     }
 
-    public void delete(){
+    public void delete() {
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null);
@@ -72,14 +86,30 @@ public class EmployeesWindowController {
         alert.getButtonTypes().clear();
         alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
-        if(alert.getResult() == ButtonType.YES){
+        if (alert.getResult() == ButtonType.YES) {
+//  TODO exception handling
             tableView.getItems().remove(dto);
             employeesService.delete(dto.getId());
         }
-
-
-
     }
 
+    public void add() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/addEmployeeWindow.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initOwner(employeesWindow.getScene().getWindow());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            search();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+        }
+    }
 
 }

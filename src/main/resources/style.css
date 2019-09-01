@@ -21,8 +21,6 @@
 .employees-search-box {
     -fx-hgap: 5;
     -fx-vgap: 5;
-
-
 }
 
 .employees-button-box{
@@ -31,5 +29,10 @@
 
 .employees-button {
     -fx-min-width: 75;
+}
 
+.add-edit-fields {
+    -fx-vgap: 5;
+    -fx-hgap: 5;
+    -fx-padding: 5, 5, 5, 5;
 }
