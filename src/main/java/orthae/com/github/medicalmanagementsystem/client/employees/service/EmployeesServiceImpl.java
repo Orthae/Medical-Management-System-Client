@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import orthae.com.github.medicalmanagementsystem.client.aspects.exceptions.Error;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.AddEmployeeDto;
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.AuthorityDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     public List<EmployeeDto> find(String name, String surname, String username, String email) {
+    // TODO error handling for connection error/token expiry
         StringBuilder queryBuilder = new StringBuilder("/employees?");
         if (name != null) {
             queryBuilder.append("name=");
@@ -68,8 +70,8 @@ public class EmployeesServiceImpl implements EmployeesService {
                 .exchange().block());
     }
 
-    public void add(String name, String surname, String username, String email, String password) {
-        AddEmployeeDto dto = new AddEmployeeDto(name, surname, username, email, password);
+    public void add(String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
+        AddEmployeeDto dto = new AddEmployeeDto(name, surname, username, email, password, authorities);
         ClientResponse response = client.post().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken()).body(BodyInserters.fromObject(dto)).exchange().block();
         if (response != null && response.rawStatusCode() != 201) {
             Error error = response.bodyToMono(Error.class).block();
@@ -79,5 +81,5 @@ public class EmployeesServiceImpl implements EmployeesService {
                 throw new RuntimeException("Unknown error. Error response is missing");
         }
     }
-
+    
 }

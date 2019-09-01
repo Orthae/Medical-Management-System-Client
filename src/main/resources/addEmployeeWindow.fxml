@@ -18,7 +18,13 @@
     <TextField fx:id="emailTextfield" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
     <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <Label text="Authorities" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+    <CheckBox fx:id="managementCheckbox" text="Management" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+    <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="10">
     <Button text="Add" onAction="#add" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
     <Button text="Cancel" onAction="#close" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     </HBox>
