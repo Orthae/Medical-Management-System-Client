@@ -81,16 +81,21 @@ public class EmployeesWindowController {
 
     public void delete() {
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete selected employee");
-        alert.getButtonTypes().clear();
-        alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
-        alert.showAndWait();
-        if (alert.getResult() == ButtonType.YES) {
+        if(dto == null){
+            noItemSelectedAlert();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete selected employee");
+            alert.getButtonTypes().clear();
+            alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
 //  TODO exception handling
-            tableView.getItems().remove(dto);
-            employeesService.delete(dto.getId());
+                tableView.getItems().remove(dto);
+                employeesService.delete(dto.getId());
+                tableView.getSelectionModel().clearSelection();
+            }
         }
     }
 
@@ -114,30 +119,38 @@ public class EmployeesWindowController {
     }
 
     public void edit(){
-        System.out.println("CALLED");
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
-            loader.setControllerFactory(context::getBean);
-            Parent root = loader.load();
-            EditEmployeeWindowController controller = loader.getController();
-            controller.initialize(tableView.getSelectionModel().getSelectedItem());
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initOwner(employeesWindow.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-            search();
-        } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-        }
+        EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
+        if(dto == null){
+            noItemSelectedAlert();
+        } else {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
+                loader.setControllerFactory(context::getBean);
+                Parent root = loader.load();
+                EditEmployeeWindowController controller = loader.getController();
+                controller.initialize(tableView.getSelectionModel().getSelectedItem());
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.initOwner(employeesWindow.getScene().getWindow());
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                search();
+            } catch (IOException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText(e.getMessage());
+            }
 
+        }
     }
 
-    private void createWindow(String fxml){}
-
+    private void noItemSelectedAlert(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setHeaderText(null);
+        alert.setContentText("You didn't select any employee");
+        alert.showAndWait();
+    }
 
 }
 

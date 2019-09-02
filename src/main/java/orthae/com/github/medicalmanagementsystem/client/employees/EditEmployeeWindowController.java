@@ -1,6 +1,7 @@
 package orthae.com.github.medicalmanagementsystem.client.employees;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
@@ -27,7 +28,18 @@ public class EditEmployeeWindowController {
     }
 
     public void edit(){
+        try {
         employeesService.update(credentialsFields.processForm());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Updated employee data.");
+            alert.showAndWait();
+            close();
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+        }
     }
 
     public void close (){

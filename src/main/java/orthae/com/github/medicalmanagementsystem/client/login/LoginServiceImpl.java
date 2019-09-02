@@ -25,7 +25,6 @@ public class LoginServiceImpl implements LoginService {
         WebClient.RequestHeadersSpec requestSpec = request.uri("/login").body(BodyInserters.fromObject(new LoginDto(username, password)));
         String token = requestSpec.retrieve().bodyToMono(String.class).block();
         settingsService.setSessionToken(token);
-        System.out.println(settingsService.getSessionToken());
     }
 
 }

@@ -34,15 +34,8 @@ public class EmployeesServiceImpl implements EmployeesService {
     public EmployeeDetailsDto find(int id){
         String payload = Objects.requireNonNull(client.get().uri("/employees/" + id).header("Authorization", "Bearer " + settingsService.getSessionToken())
                 .exchange().block()).bodyToMono((String.class)).block();
-        System.out.println(payload);
         try {
-            EmployeeDetailsDto dto = mapper.readValue(payload, EmployeeDetailsDto.class);
-            System.out.println("FROM SERVICE");
-            System.out.println(dto.getAuthorities());
-            for(AuthorityDto dto1 : dto.getAuthorities()){
-                System.out.println(dto1.getAuthority());
-            }
-            return dto;
+            return mapper.readValue(payload, EmployeeDetailsDto.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;

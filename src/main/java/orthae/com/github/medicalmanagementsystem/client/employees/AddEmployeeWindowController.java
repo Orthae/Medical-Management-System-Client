@@ -23,6 +23,10 @@ public class AddEmployeeWindowController {
     public void add() {
         try {
             employeesService.add(credentialsFields.processForm());
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Created new employee");
+            alert.showAndWait();
             close();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
