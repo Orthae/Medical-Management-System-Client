@@ -1,5 +1,6 @@
 package orthae.com.github.medicalmanagementsystem.client.employees.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -8,8 +9,8 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import orthae.com.github.medicalmanagementsystem.client.aspects.exceptions.Error;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.AddEmployeeDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.AuthorityDto;
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
 import java.io.IOException;
@@ -28,6 +29,24 @@ public class EmployeesServiceImpl implements EmployeesService {
         this.client = WebClient.create(serverAddress);
         this.settingsService = settingsService;
         this.mapper = objectMapper;
+    }
+
+    public EmployeeDetailsDto find(int id){
+        String payload = Objects.requireNonNull(client.get().uri("/employees/" + id).header("Authorization", "Bearer " + settingsService.getSessionToken())
+                .exchange().block()).bodyToMono((String.class)).block();
+        System.out.println(payload);
+        try {
+            EmployeeDetailsDto dto = mapper.readValue(payload, EmployeeDetailsDto.class);
+            System.out.println("FROM SERVICE");
+            System.out.println(dto.getAuthorities());
+            for(AuthorityDto dto1 : dto.getAuthorities()){
+                System.out.println(dto1.getAuthority());
+            }
+            return dto;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public List<EmployeeDto> find(String name, String surname, String username, String email) {
@@ -70,8 +89,7 @@ public class EmployeesServiceImpl implements EmployeesService {
                 .exchange().block());
     }
 
-    public void add(String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
-        AddEmployeeDto dto = new AddEmployeeDto(name, surname, username, email, password, authorities);
+    public void add(EmployeeDetailsDto dto) {
         ClientResponse response = client.post().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken()).body(BodyInserters.fromObject(dto)).exchange().block();
         if (response != null && response.rawStatusCode() != 201) {
             Error error = response.bodyToMono(Error.class).block();
@@ -80,6 +98,13 @@ public class EmployeesServiceImpl implements EmployeesService {
             else
                 throw new RuntimeException("Unknown error. Error response is missing");
         }
+    }
+
+
+    public void update(EmployeeDetailsDto dto){
+        // TODO check for response and throw it if error
+        ClientResponse response = client.put().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken())
+                .body(BodyInserters.fromObject(dto)).exchange().block();
     }
     
 }

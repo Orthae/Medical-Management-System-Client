@@ -1,5 +1,6 @@
 package orthae.com.github.medicalmanagementsystem.client.employees;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,13 +51,13 @@ public class EmployeesWindowController {
     }
 
     public void initialize() {
-        nameColumn.setCellValueFactory(param -> param.getValue().getName());
+        nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         nameColumn.setMinWidth(100);
-        surnameColumn.setCellValueFactory(param -> param.getValue().getSurname());
+        surnameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSurname()));
         surnameColumn.setMinWidth(100);
-        usernameColumn.setCellValueFactory(param -> param.getValue().getUsername());
+        usernameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getUsername()));
         usernameColumn.setMinWidth(100);
-        emailColumn.setCellValueFactory(param -> param.getValue().getEmail());
+        emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
         emailColumn.setMinWidth(200);
         search();
     }
@@ -112,4 +113,31 @@ public class EmployeesWindowController {
         }
     }
 
+    public void edit(){
+        System.out.println("CALLED");
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/editEmployeeWindow.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+            EditEmployeeWindowController controller = loader.getController();
+            controller.initialize(tableView.getSelectionModel().getSelectedItem());
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initOwner(employeesWindow.getScene().getWindow());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+            search();
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText(e.getMessage());
+        }
+
+    }
+
+    private void createWindow(String fxml){}
+
+
 }
+

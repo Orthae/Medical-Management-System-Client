@@ -4,10 +4,10 @@
 <?import javafx.scene.layout.*?>
 
 <VBox fx:id="addEditEmployeeWindow" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.AddEmployeeWindowController"
-      stylesheets="style.css" styleClass="add-edit-window">
-    <Label text="Create new employee"/>
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EditEmployeeWindowController"
+            stylesheets="style.css" styleClass="add-edit-window">
+    <Label text="Edit employee"/>
     <GridPane styleClass="add-edit-fields">
         <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <TextField fx:id="nameTextfield" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
@@ -26,7 +26,7 @@
         <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
         <CheckBox text="Placeholder" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
         <HBox GridPane.columnIndex="1" GridPane.rowIndex="10">
-            <Button text="Create" styleClass="add-edit-button" onAction="#add"/>
+            <Button text="Edit" styleClass="add-edit-button" onAction="#edit"/>
             <Button text="Cancel" styleClass="add-edit-button" onAction="#close"/>
         </HBox>
     </GridPane>

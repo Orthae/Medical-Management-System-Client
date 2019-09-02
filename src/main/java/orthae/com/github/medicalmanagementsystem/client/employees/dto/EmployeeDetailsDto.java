@@ -1,13 +1,15 @@
 package orthae.com.github.medicalmanagementsystem.client.employees.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter
 @Setter
-public class AddEmployeeDto {
+@NoArgsConstructor
+public class EmployeeDetailsDto {
     private int id;
     private String name;
     private String surname;
@@ -17,11 +19,11 @@ public class AddEmployeeDto {
     private List<AuthorityDto> authorities;
 
 
-    public AddEmployeeDto(String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
+    public EmployeeDetailsDto(String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
         this(0, name, surname, username, email ,password, authorities);
     }
 
-    public AddEmployeeDto(int id, String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
+    public EmployeeDetailsDto(int id, String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -30,4 +32,5 @@ public class AddEmployeeDto {
         this.password = password;
         this.authorities = authorities;
     }
+
 }
