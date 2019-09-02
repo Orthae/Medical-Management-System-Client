@@ -18,7 +18,7 @@ public class StageListener implements ApplicationListener<StageReadyEvent> {
 
     @Value("${javafx.appTitle}")
     private String appTitle;
-    @Value("classpath:/loginWindow.fxml")
+    @Value("classpath:/fxml/login/loginWindow.fxml")
     private Resource fxml;
 
     private ApplicationContext context;

@@ -97,7 +97,7 @@ public class EmployeesWindowController {
     public void add() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/addEmployeeWindow.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/employees/addEmployeeWindow.fxml"));
             loader.setControllerFactory(context::getBean);
             Parent root = loader.load();
             Stage stage = new Stage();
@@ -117,7 +117,7 @@ public class EmployeesWindowController {
         System.out.println("CALLED");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/editEmployeeWindow.fxml"));
+            loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
             loader.setControllerFactory(context::getBean);
             Parent root = loader.load();
             EditEmployeeWindowController controller = loader.getController();

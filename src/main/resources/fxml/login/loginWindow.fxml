@@ -10,10 +10,10 @@
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.login.LoginWindowController"
-      stylesheets="style.css" styleClass="login-window">
+      stylesheets="/style.css" styleClass="login-window">
 
     <ImageView fx:id="loginImage"/>
-    <VBox styleClass="login-credential">
+    <VBox>
         <GridPane styleClass="login-fields">
             <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
             <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
@@ -21,7 +21,7 @@
             <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
         <HBox styleClass="login-button-box" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <Button styleClass="login-button" fx:id="loginButton" text="Login" onAction="#login"/>
-        <Button styleClass="login-button" fx:id="exitButton" text="Exit" onAction="#closeApp"/>
+        <Button styleClass="login-button" text="Exit" onAction="#closeApp"/>
         </HBox>
         </GridPane>
     </VBox>

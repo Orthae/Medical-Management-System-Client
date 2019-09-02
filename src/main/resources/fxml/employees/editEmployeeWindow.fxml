@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="editEmployeeWindow" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EditEmployeeWindowController"
+      stylesheets="/style.css" styleClass="add-edit-window">
+    <Label text="Edit employee"/>
+        <fx:include source="employeeCredentialsFields.fxml"/>
+        <HBox GridPane.columnIndex="1" GridPane.rowIndex="10">
+            <Button text="Edit" styleClass="add-edit-button" onAction="#edit"/>
+            <Button text="Cancel" styleClass="add-edit-button" onAction="#close"/>
+        </HBox>
+
+</VBox>

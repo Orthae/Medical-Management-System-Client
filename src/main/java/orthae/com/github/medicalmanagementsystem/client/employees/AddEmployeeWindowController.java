@@ -1,34 +1,39 @@
 package orthae.com.github.medicalmanagementsystem.client.employees;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import lombok.Getter;
-import lombok.Setter;
+import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
 
 @Component
-@Getter
-@Setter
-public class AddEmployeeWindowController extends AbstractAddEditEmployeeWindowController {
+public class AddEmployeeWindowController {
+
+    @FXML
+    private VBox addEmployeeWindow;
 
     private EmployeesService employeesService;
+    private EmployeeCredentialsController credentialsFields;
 
-    public AddEmployeeWindowController(EmployeesService employeesService){
+    public AddEmployeeWindowController(EmployeesService employeesService, EmployeeCredentialsController credentialsFields ){
         this.employeesService = employeesService;
+        this.credentialsFields = credentialsFields;
     }
 
     public void add() {
-        EmployeeDetailsDto dto = processForm();
         try {
-            employeesService.add(dto);
-            getAddEditEmployeeWindow().getScene().getWindow().hide();
+            employeesService.add(credentialsFields.processForm());
+            close();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
             alert.showAndWait();
         }
+    }
+
+    public void close(){
+        addEmployeeWindow.getScene().getWindow().hide();
     }
 
 }

@@ -5,7 +5,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EmployeesWindowController" stylesheets="style.css"
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EmployeesWindowController" stylesheets="/style.css"
             fx:id="employeesWindow">
     <top>
         <GridPane styleClass="employees-search-box">

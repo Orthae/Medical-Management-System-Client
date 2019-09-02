@@ -31,7 +31,7 @@
     -fx-min-width: 75;
 }
 
-.add-edit-fields {
+.employee-credentials-fields {
     -fx-vgap: 5;
     -fx-hgap: 5;
     -fx-padding: 5, 5, 5, 5;
