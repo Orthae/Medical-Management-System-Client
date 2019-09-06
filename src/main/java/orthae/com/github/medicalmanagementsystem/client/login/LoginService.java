@@ -1,6 +1,5 @@
 package orthae.com.github.medicalmanagementsystem.client.login;
 
-import java.net.ConnectException;
 
 public interface LoginService {
 

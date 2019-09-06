@@ -1,15 +1,12 @@
 package orthae.com.github.medicalmanagementsystem.client.employees.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
-import orthae.com.github.medicalmanagementsystem.client.aspects.exceptions.Error;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.AuthorityDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
@@ -31,7 +28,7 @@ public class EmployeesServiceImpl implements EmployeesService {
         this.mapper = objectMapper;
     }
 
-    public EmployeeDetailsDto find(int id){
+    public EmployeeDetailsDto find(int id) {
         String payload = Objects.requireNonNull(client.get().uri("/employees/" + id).header("Authorization", "Bearer " + settingsService.getSessionToken())
                 .exchange().block()).bodyToMono((String.class)).block();
         try {
@@ -43,7 +40,7 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     public List<EmployeeDto> find(String name, String surname, String username, String email) {
-    // TODO error handling for connection error/token expiry
+        // TODO error handling for connection error/token expiry
         StringBuilder queryBuilder = new StringBuilder("/employees?");
         if (name != null) {
             queryBuilder.append("name=");
@@ -83,21 +80,25 @@ public class EmployeesServiceImpl implements EmployeesService {
     }
 
     public void add(EmployeeDetailsDto dto) {
-        ClientResponse response = client.post().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken()).body(BodyInserters.fromObject(dto)).exchange().block();
+        ClientResponse response = client.post().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken())
+                .body(BodyInserters.fromObject(dto)).exchange().block();
         if (response != null && response.rawStatusCode() != 201) {
-            Error error = response.bodyToMono(Error.class).block();
-            if (error != null)
-                throw new RuntimeException(error.toString());
-            else
-                throw new RuntimeException("Unknown error. Error response is missing");
+            String error = response.bodyToMono(String.class).block();
+            {
+                if (error != null)
+                    throw new RuntimeException(error);
+                else
+                    throw new RuntimeException("Unknown error");
+            }
         }
+
     }
 
 
-    public void update(EmployeeDetailsDto dto){
+    public void update(EmployeeDetailsDto dto) {
         // TODO check for response and throw it if error
         ClientResponse response = client.put().uri("/employees").header("Authorization", "Bearer " + settingsService.getSessionToken())
                 .body(BodyInserters.fromObject(dto)).exchange().block();
     }
-    
+
 }

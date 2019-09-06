@@ -25,7 +25,7 @@ public class AddEmployeeWindowController {
             employeesService.add(credentialsFields.processForm());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
-            alert.setContentText("Created new employee");
+            alert.setContentText("New employee created.");
             alert.showAndWait();
             close();
         } catch (Exception e) {

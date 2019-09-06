@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.MainWindow"
+      prefHeight="800.0" prefWidth="1200.0">
+    <TabPane VBox.vgrow="ALWAYS">
+        <Tab text="Dashboard" closable="false">
+            <fx:include source="../dashboard/dashboardWindow.fxml"/>
+        </Tab>
+        <Tab text="Employees" closable="false">
+            <fx:include source="../employees/employeesWindow.fxml"/>
+        </Tab>
+    </TabPane>
+    <Separator/>
+    <fx:include source="statusBar.fxml"/>
+</VBox>

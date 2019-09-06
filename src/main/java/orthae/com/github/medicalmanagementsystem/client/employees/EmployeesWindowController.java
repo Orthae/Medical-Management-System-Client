@@ -59,7 +59,6 @@ public class EmployeesWindowController {
         usernameColumn.setMinWidth(100);
         emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
         emailColumn.setMinWidth(200);
-        search();
     }
 
 

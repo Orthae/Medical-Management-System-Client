@@ -54,7 +54,7 @@ public class LoginWindowController {
                     try {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setControllerFactory(context::getBean);
-                        loader.setLocation(getClass().getResource("/mainWindow.fxml"));
+                        loader.setLocation(getClass().getResource("/fxml/main/mainWindow.fxml"));
                         Parent root = loader.load();
                         Stage stage = new Stage();
                         stage.setScene(new Scene(root));
@@ -67,7 +67,7 @@ public class LoginWindowController {
                } catch (Exception exc) {
                 Platform.runLater(() -> {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setContentText("Exception: " + exc.getMessage());
+                    alert.setContentText(exc.getMessage());
                     alert.setHeaderText(null);
                     alert.showAndWait();
                     loginButton.disableProperty().setValue(false);
