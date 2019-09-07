@@ -1,13 +1,12 @@
 package orthae.com.github.medicalmanagementsystem.client.login;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import orthae.com.github.medicalmanagementsystem.client.aspects.exceptions.Error;
+import orthae.com.github.medicalmanagementsystem.client.aspects.exceptions.ExceptionResponse;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 
@@ -31,12 +30,11 @@ public class LoginServiceImpl implements LoginService {
                 settingsService.setSessionToken(token);
                 setEmployee();
             } else {
-                Error error = response.bodyToMono(Error.class).block();
-                if (error != null) {
-//  TODO Fix error message
-                    throw new RuntimeException(error.toString());
+                ExceptionResponse exceptionResponse = response.bodyToMono(ExceptionResponse.class).block();
+                if (exceptionResponse != null) {
+                    throw new RuntimeException(exceptionResponse.toString());
                 } else {
-                    throw new RuntimeException("Error response is null");
+                    throw new RuntimeException("ExceptionResponse response is null");
                 }
             }
         } else {
