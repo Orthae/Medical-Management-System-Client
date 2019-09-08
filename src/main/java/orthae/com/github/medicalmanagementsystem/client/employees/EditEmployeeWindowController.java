@@ -29,7 +29,7 @@ public class EditEmployeeWindowController {
 
     public void edit(){
         try {
-        employeesService.update(credentialsFields.processForm());
+            employeesService.update(credentialsFields.processForm());
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Updated employee data.");
@@ -39,6 +39,7 @@ public class EditEmployeeWindowController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText(null);
             alert.setContentText(e.getMessage());
+            alert.showAndWait();
         }
     }
 

@@ -81,7 +81,7 @@ public class EmployeesWindowController {
     public void delete() {
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
         if(dto == null){
-            noItemSelectedAlert();
+            noEmployeeSelectedAlert();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
@@ -90,10 +90,13 @@ public class EmployeesWindowController {
             alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-//  TODO exception handling
-                tableView.getItems().remove(dto);
+                try {
                 employeesService.delete(dto.getId());
+                tableView.getItems().remove(dto);
                 tableView.getSelectionModel().clearSelection();
+                } catch (Exception e){
+                 errorAlert(e.getMessage());
+                }
             }
         }
     }
@@ -111,16 +114,14 @@ public class EmployeesWindowController {
             stage.showAndWait();
             search();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setContentText(e.getMessage());
-        }
+            errorAlert(e.getMessage());
+          }
     }
 
     public void edit(){
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
         if(dto == null){
-            noItemSelectedAlert();
+            noEmployeeSelectedAlert();
         } else {
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -136,20 +137,24 @@ public class EmployeesWindowController {
                 stage.showAndWait();
                 search();
             } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setContentText(e.getMessage());
+                errorAlert(e.getMessage());
             }
-
         }
     }
 
-    private void noItemSelectedAlert(){
+
+    private void noEmployeeSelectedAlert(){
+        errorAlert("You didn't select any employee");
+    }
+
+    private void errorAlert(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
-        alert.setContentText("You didn't select any employee");
+        alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 
 }
 
