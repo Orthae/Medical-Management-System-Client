@@ -63,12 +63,16 @@ public class EmployeesWindowController {
 
 
     public void search() {
-        String name = nameTextfield.getText().trim().isEmpty() ? null : nameTextfield.getText().trim();
-        String surname = surnameTextfield.getText().trim().isEmpty() ? null : surnameTextfield.getText().trim();
-        String username = usernameTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
-        String email = emailTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
-        tableView.getItems().clear();
-        tableView.getItems().addAll(employeesService.find(name, surname, username, email));
+        try {
+            String name = nameTextfield.getText().trim().isEmpty() ? null : nameTextfield.getText().trim();
+            String surname = surnameTextfield.getText().trim().isEmpty() ? null : surnameTextfield.getText().trim();
+            String username = usernameTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
+            String email = emailTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
+            tableView.getItems().clear();
+            tableView.getItems().addAll(employeesService.find(name, surname, username, email));
+        } catch (Exception e) {
+            errorAlert(e.getMessage());
+        }
     }
 
     public void clear() {
@@ -80,7 +84,7 @@ public class EmployeesWindowController {
 
     public void delete() {
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
-        if(dto == null){
+        if (dto == null) {
             noEmployeeSelectedAlert();
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -91,11 +95,11 @@ public class EmployeesWindowController {
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
                 try {
-                employeesService.delete(dto.getId());
-                tableView.getItems().remove(dto);
-                tableView.getSelectionModel().clearSelection();
-                } catch (Exception e){
-                 errorAlert(e.getMessage());
+                    employeesService.delete(dto.getId());
+                    tableView.getItems().remove(dto);
+                    tableView.getSelectionModel().clearSelection();
+                } catch (Exception e) {
+                    errorAlert(e.getMessage());
                 }
             }
         }
@@ -112,15 +116,14 @@ public class EmployeesWindowController {
             stage.initOwner(employeesWindow.getScene().getWindow());
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
-            search();
         } catch (IOException e) {
             errorAlert(e.getMessage());
-          }
+        }
     }
 
-    public void edit(){
+    public void edit() {
         EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
-        if(dto == null){
+        if (dto == null) {
             noEmployeeSelectedAlert();
         } else {
             try {
@@ -135,7 +138,6 @@ public class EmployeesWindowController {
                 stage.initOwner(employeesWindow.getScene().getWindow());
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
-                search();
             } catch (IOException e) {
                 errorAlert(e.getMessage());
             }
@@ -143,17 +145,16 @@ public class EmployeesWindowController {
     }
 
 
-    private void noEmployeeSelectedAlert(){
+    private void noEmployeeSelectedAlert() {
         errorAlert("You didn't select any employee");
     }
 
-    private void errorAlert(String message){
+    private void errorAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 
 
 }

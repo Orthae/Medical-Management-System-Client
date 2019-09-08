@@ -23,7 +23,7 @@
     -fx-vgap: 5;
 }
 
-.employees-button-box{
+.employees-button-box {
     -fx-spacing: 3;
 }
 
@@ -42,6 +42,11 @@
     -fx-alignment: CENTER;
 }
 
+.add-edit-button-box {
+    -fx-alignment: CENTER;
+    -fx-spacing: 5;
+}
+
 .add-edit-button {
-    -fx-min-width: 65;
+    -fx-min-width: 75;
 }
