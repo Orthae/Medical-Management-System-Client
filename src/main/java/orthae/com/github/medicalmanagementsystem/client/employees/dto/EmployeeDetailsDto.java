@@ -18,11 +18,6 @@ public class EmployeeDetailsDto {
     private String password;
     private List<AuthorityDto> authorities;
 
-
-    public EmployeeDetailsDto(String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
-        this(0, name, surname, username, email ,password, authorities);
-    }
-
     public EmployeeDetailsDto(int id, String name, String surname, String username, String email, String password, List<AuthorityDto> authorities) {
         this.id = id;
         this.name = name;
