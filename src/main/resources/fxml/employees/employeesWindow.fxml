@@ -40,8 +40,8 @@
                 <Button text="Add" onAction="#add" styleClass="employees-button"/>
                 <Button text="Edit" onAction="#edit" styleClass="employees-button"/>
                 <Button text="Delete" onAction="#delete" styleClass="employees-button"/>
-                <Button text="Placeholder" styleClass="employees-button"/>
-                <Button text="Placeholder" styleClass="employees-button"/>
+                <Button text="Activate" onAction="#activate" styleClass="employees-button"/>
+                <Button text="Deactivate" onAction="#deactivate" styleClass="employees-button"/>
             </VBox>
         </HBox>
     </center>

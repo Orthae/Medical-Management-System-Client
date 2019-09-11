@@ -45,6 +45,12 @@ public class RestClientImpl implements RestClient {
     }
 
     @Override
+    public void post(String uri, int successCode){
+        ClientResponse response = client.post().uri(uri).header("Authorization", "Bearer " + settingsService.getSessionToken()).exchange().block();
+        handleResponse(response, successCode);
+    }
+
+    @Override
     public <T, B> T put(String uri, int successCode, B requestBody, Class<T> aClass) {
         throw new RuntimeException("METHOD NOT IMPLEMENTED");
     }

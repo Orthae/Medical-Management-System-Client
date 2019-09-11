@@ -11,5 +11,7 @@ public interface EmployeesService {
     List<EmployeeDto> find(String name, String surname, String username, String email);
     void add(EmployeeDetailsDto dto);
     void update(EmployeeDetailsDto dto);
+    void activate(int id);
+    void deactivate(int id);
     void delete(int id);
 }

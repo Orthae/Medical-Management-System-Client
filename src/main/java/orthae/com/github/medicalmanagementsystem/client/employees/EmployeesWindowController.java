@@ -95,10 +95,8 @@ public class EmployeesWindowController {
     }
 
     public void delete() {
-        EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
-        if (dto == null) {
-            noEmployeeSelectedAlert();
-        } else {
+        try {
+            EmployeeDto dto = getSelected();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setContentText("Are you sure you want to delete selected employee");
@@ -106,14 +104,12 @@ public class EmployeesWindowController {
             alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
             alert.showAndWait();
             if (alert.getResult() == ButtonType.YES) {
-                try {
-                    employeesService.delete(dto.getId());
-                    tableView.getItems().remove(dto);
-                    tableView.getSelectionModel().clearSelection();
-                } catch (Exception e) {
-                    errorAlert(e.getMessage());
-                }
+                employeesService.delete(dto.getId());
+                tableView.getItems().remove(dto);
             }
+            tableView.getSelectionModel().clearSelection();
+        } catch (Exception e) {
+            errorAlert(e.getMessage());
         }
     }
 
@@ -134,31 +130,41 @@ public class EmployeesWindowController {
     }
 
     public void edit() {
-        EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
-        if (dto == null) {
-            noEmployeeSelectedAlert();
-        } else {
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
-                loader.setControllerFactory(context::getBean);
-                Parent root = loader.load();
-                EditEmployeeWindowController controller = loader.getController();
-                controller.initialize(tableView.getSelectionModel().getSelectedItem());
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.initOwner(employeesWindow.getScene().getWindow());
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.showAndWait();
-            } catch (IOException e) {
-                errorAlert(e.getMessage());
-            }
+        try {
+            EmployeeDto dto = getSelected();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
+            loader.setControllerFactory(context::getBean);
+            Parent root = loader.load();
+            EditEmployeeWindowController controller = loader.getController();
+            controller.initialize(dto);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initOwner(employeesWindow.getScene().getWindow());
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (Exception e) {
+            errorAlert(e.getMessage());
+        }
+    }
+
+    public void activate() {
+        try {
+            EmployeeDto dto = getSelected();
+            employeesService.activate(dto.getId());
+        } catch (Exception e) {
+            errorAlert(e.getMessage());
         }
     }
 
 
-    private void noEmployeeSelectedAlert() {
-        errorAlert("You didn't select any employee");
+    public void deactivate() {
+        try {
+            EmployeeDto dto = getSelected();
+            employeesService.deactivate(dto.getId());
+        } catch (Exception e) {
+            errorAlert(e.getMessage());
+        }
     }
 
     private void errorAlert(String message) {
@@ -166,6 +172,14 @@ public class EmployeesWindowController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private EmployeeDto getSelected() {
+        EmployeeDto dto = tableView.getSelectionModel().getSelectedItem();
+        if (dto != null)
+            return dto;
+        else
+            throw new RuntimeException("You didn't select any employee");
     }
 
 

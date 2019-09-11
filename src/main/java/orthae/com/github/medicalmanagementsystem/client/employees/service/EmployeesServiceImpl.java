@@ -1,10 +1,7 @@
 package orthae.com.github.medicalmanagementsystem.client.employees.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import orthae.com.github.medicalmanagementsystem.client.aspects.rest.RestClient;
-import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
@@ -14,13 +11,9 @@ import java.util.List;
 @Service
 public class EmployeesServiceImpl implements EmployeesService {
 
-    private WebClient client;
     private RestClient restClient;
-    private SettingsService settingsService;
 
-    public EmployeesServiceImpl(@Value("${application.server-address}") String serverAddress, SettingsService settingsService, RestClient restClient) {
-        this.client = WebClient.create(serverAddress);
-        this.settingsService = settingsService;
+    public EmployeesServiceImpl(RestClient restClient) {
         this.restClient = restClient;
     }
 
@@ -59,13 +52,24 @@ public class EmployeesServiceImpl implements EmployeesService {
         restClient.delete("/employees/" + id, 200);
     }
 
+    @Override
     public void add(EmployeeDetailsDto dto) {
         restClient.post("/employees/", 201, dto);
     }
 
-
+    @Override
     public void update(EmployeeDetailsDto dto) {
         restClient.put("/employees", 200, dto);
     }
+
+    public void activate(int id){
+       restClient.post("/employees/" + id + "/active", 200);
+    }
+
+    public void deactivate(int id){
+        restClient.delete("/employees/" + id + "/active", 200);
+    }
+
+
 
 }
