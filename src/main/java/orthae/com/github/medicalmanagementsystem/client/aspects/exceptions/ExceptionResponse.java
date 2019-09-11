@@ -17,7 +17,7 @@ public class ExceptionResponse {
     @Override
     public String toString(){
         return "Timestamp: " + timestamp.toString() + "\n"  +
-                "Status code:" + status + "\n" +
+                "Status code: " + status + "\n" +
                 "Path: " + path + "\n" +
                 "Error: " + error + "\n\n" +
                 message + "\n";

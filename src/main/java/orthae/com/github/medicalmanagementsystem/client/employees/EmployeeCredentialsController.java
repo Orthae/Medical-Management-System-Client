@@ -38,11 +38,12 @@ public class EmployeeCredentialsController {
         String username = usernameTextfield.getText();
         String email = emailTextfield.getText();
         String password = passwordField.getText();
+        boolean active = detailsDto == null || detailsDto.isActive();
         List<AuthorityDto> authorities = new ArrayList<>();
         if(managementCheckbox.isSelected()){
             authorities.add(new AuthorityDto("MANAGEMENT"));
         }
-        return new EmployeeDetailsDto(id ,name, surname, username, email, password, authorities);
+        return new EmployeeDetailsDto(id ,name, surname, username, email, password, active, authorities);
     }
 
     @SuppressWarnings({"WeakerAccess", "SwitchStatementWithTooFewBranches"})

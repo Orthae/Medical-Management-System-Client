@@ -13,4 +13,5 @@ public class EmployeeDto {
     private String surname;
     private String username;
     private String email;
+    private boolean active;
 }

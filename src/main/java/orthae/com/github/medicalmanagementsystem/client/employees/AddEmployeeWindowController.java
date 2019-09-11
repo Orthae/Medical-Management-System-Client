@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
 
 @Component
@@ -22,7 +23,8 @@ public class AddEmployeeWindowController {
 
     public void add() {
         try {
-            employeesService.add(credentialsFields.processForm());
+            EmployeeDetailsDto detailsDto = credentialsFields.processForm();
+            employeesService.add(detailsDto);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("New employee created.");

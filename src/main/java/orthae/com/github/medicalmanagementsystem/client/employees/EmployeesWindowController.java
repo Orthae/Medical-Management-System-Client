@@ -1,5 +1,7 @@
 package orthae.com.github.medicalmanagementsystem.client.employees;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,27 +22,32 @@ import java.io.IOException;
 public class EmployeesWindowController {
 
     @FXML
-    BorderPane employeesWindow;
+    private BorderPane employeesWindow;
 
     @FXML
-    TextField nameTextfield;
+    private TextField nameTextfield;
     @FXML
-    TextField surnameTextfield;
+    private TextField surnameTextfield;
     @FXML
-    TextField usernameTextfield;
+    private TextField usernameTextfield;
     @FXML
-    TextField emailTextfield;
+    private TextField emailTextfield;
 
     @FXML
-    TableView<EmployeeDto> tableView;
+    private TableView<EmployeeDto> tableView;
     @FXML
-    TableColumn<EmployeeDto, String> nameColumn;
+    private TableColumn<EmployeeDto, Number> idColumn;
     @FXML
-    TableColumn<EmployeeDto, String> surnameColumn;
+    private TableColumn<EmployeeDto, String> nameColumn;
     @FXML
-    TableColumn<EmployeeDto, String> usernameColumn;
+    private TableColumn<EmployeeDto, String> surnameColumn;
     @FXML
-    TableColumn<EmployeeDto, String> emailColumn;
+    private TableColumn<EmployeeDto, String> usernameColumn;
+    @FXML
+    private TableColumn<EmployeeDto, String> emailColumn;
+    @FXML
+    private TableColumn<EmployeeDto, Boolean> activeColumn;
+
 
     private EmployeesService employeesService;
     private ApplicationContext context;
@@ -51,6 +58,10 @@ public class EmployeesWindowController {
     }
 
     public void initialize() {
+        idColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getId()));
+        idColumn.setMinWidth(35);
+        idColumn.setMaxWidth(35);
+        idColumn.setResizable(false);
         nameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getName()));
         nameColumn.setMinWidth(100);
         surnameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getSurname()));
@@ -59,6 +70,7 @@ public class EmployeesWindowController {
         usernameColumn.setMinWidth(100);
         emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
         emailColumn.setMinWidth(200);
+        activeColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isActive()));
     }
 
 

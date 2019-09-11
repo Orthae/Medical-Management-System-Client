@@ -29,7 +29,8 @@ public class EditEmployeeWindowController {
 
     public void edit(){
         try {
-            employeesService.update(credentialsFields.processForm());
+            EmployeeDetailsDto detailsDto = credentialsFields.processForm();
+            employeesService.update(detailsDto);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
             alert.setContentText("Updated employee data.");
