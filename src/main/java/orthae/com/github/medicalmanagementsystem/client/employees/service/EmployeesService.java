@@ -1,5 +1,6 @@
 package orthae.com.github.medicalmanagementsystem.client.employees.service;
 
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeChangePasswordDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
@@ -13,5 +14,6 @@ public interface EmployeesService {
     void update(EmployeeDetailsDto dto);
     void activate(int id);
     void deactivate(int id);
+    void changePassword(int id, EmployeeChangePasswordDto dto);
     void delete(int id);
 }

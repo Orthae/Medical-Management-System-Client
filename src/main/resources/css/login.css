@@ -1,0 +1,19 @@
+.login-window {
+    -fx-padding: 25;
+    -fx-spacing: 10;
+}
+
+.login-fields {
+    -fx-vgap: 5;
+    -fx-hgap: 5;
+}
+
+.login-button-box {
+    -fx-spacing: 5;
+    -fx-alignment: CENTER;
+}
+
+.login-button {
+    -fx-min-width: 70;
+    -fx-min-height: 25;
+}

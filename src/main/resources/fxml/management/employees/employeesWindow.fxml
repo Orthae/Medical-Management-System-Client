@@ -16,8 +16,10 @@
             <TextField fx:id="usernameTextfield" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
             <Label text="Email" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
             <TextField fx:id="emailTextfield" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
-            <Label text="Active" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+            <Label text="Enabled" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
             <ComboBox GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+            <Label text="Active" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
+            <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="5"/>
             <Button text="Search" GridPane.rowIndex="0" onAction="#search" GridPane.columnIndex="6"/>
             <Button text="Clear" GridPane.rowIndex="0" onAction="#clear" GridPane.columnIndex="7"/>
 
@@ -25,7 +27,6 @@
     </top>
 
     <center>
-        <HBox>
             <TableView HBox.hgrow="ALWAYS" fx:id="tableView">
                 <columns>
                     <TableColumn fx:id="idColumn" text="Id"/>
@@ -33,17 +34,11 @@
                     <TableColumn fx:id="surnameColumn" text="Surname"/>
                     <TableColumn fx:id="usernameColumn" text="Username"/>
                     <TableColumn fx:id="emailColumn" text="Email"/>
+                    <TableColumn fx:id="enabledColumn" text="Enabled"/>
                     <TableColumn fx:id="activeColumn" text="Active"/>
                 </columns>
             </TableView>
-            <VBox styleClass="employees-button-box">
-                <Button text="Add" onAction="#add" styleClass="employees-button"/>
-                <Button text="Edit" onAction="#edit" styleClass="employees-button"/>
-                <Button text="Delete" onAction="#delete" styleClass="employees-button"/>
-                <Button text="Activate" onAction="#activate" styleClass="employees-button"/>
-                <Button text="Deactivate" onAction="#deactivate" styleClass="employees-button"/>
-            </VBox>
-        </HBox>
+
     </center>
 
 

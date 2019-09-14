@@ -5,18 +5,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
-
-import java.io.IOException;
 
 @Component
 public class EmployeesWindowController {
@@ -46,18 +41,20 @@ public class EmployeesWindowController {
     @FXML
     private TableColumn<EmployeeDto, String> emailColumn;
     @FXML
+    private TableColumn<EmployeeDto, Boolean> enabledColumn;
+    @FXML
     private TableColumn<EmployeeDto, Boolean> activeColumn;
 
-
+    private DialogService dialogService;
     private EmployeesService employeesService;
-    private ApplicationContext context;
 
-    public EmployeesWindowController(EmployeesService employeesService, ApplicationContext context) {
+    public EmployeesWindowController(EmployeesService employeesService, DialogService dialogService) {
         this.employeesService = employeesService;
-        this.context = context;
+        this.dialogService = dialogService;
     }
 
     public void initialize() {
+        contextMenuSetup();
         idColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getId()));
         idColumn.setMinWidth(35);
         idColumn.setMaxWidth(35);
@@ -70,6 +67,7 @@ public class EmployeesWindowController {
         usernameColumn.setMinWidth(100);
         emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
         emailColumn.setMinWidth(200);
+        enabledColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isEnabled()));
         activeColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isActive()));
     }
 
@@ -83,7 +81,7 @@ public class EmployeesWindowController {
             tableView.getItems().clear();
             tableView.getItems().addAll(employeesService.find(name, surname, username, email));
         } catch (Exception e) {
-            errorAlert(e.getMessage());
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
@@ -97,81 +95,97 @@ public class EmployeesWindowController {
     public void delete() {
         try {
             EmployeeDto dto = getSelected();
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete selected employee");
-            alert.getButtonTypes().clear();
-            alert.getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
-            alert.showAndWait();
+            Alert alert = dialogService.warringAlert("Are you sure you want to delete selected employee?");
             if (alert.getResult() == ButtonType.YES) {
                 employeesService.delete(dto.getId());
                 tableView.getItems().remove(dto);
             }
             tableView.getSelectionModel().clearSelection();
         } catch (Exception e) {
-            errorAlert(e.getMessage());
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
-    public void add() {
+    public void create() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/employees/addEmployeeWindow.fxml"));
-            loader.setControllerFactory(context::getBean);
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initOwner(employeesWindow.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
+            FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/addEmployeeWindow.fxml");
+            Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
             stage.showAndWait();
-        } catch (IOException e) {
-            errorAlert(e.getMessage());
+        } catch (Exception e) {
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
     public void edit() {
         try {
             EmployeeDto dto = getSelected();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/employees/editEmployeeWindow.fxml"));
-            loader.setControllerFactory(context::getBean);
-            Parent root = loader.load();
+            FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/editEmployeeWindow.fxml");
+            Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
             EditEmployeeWindowController controller = loader.getController();
             controller.initialize(dto);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.initOwner(employeesWindow.getScene().getWindow());
-            stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (Exception e) {
-            errorAlert(e.getMessage());
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
-    public void activate() {
+    public void enable() {
         try {
             EmployeeDto dto = getSelected();
             employeesService.activate(dto.getId());
         } catch (Exception e) {
-            errorAlert(e.getMessage());
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
 
-    public void deactivate() {
+    public void disable() {
         try {
             EmployeeDto dto = getSelected();
             employeesService.deactivate(dto.getId());
         } catch (Exception e) {
-            errorAlert(e.getMessage());
+            dialogService.errorAlert(e.getMessage());
         }
     }
 
-    private void errorAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    public void changePassword(){
+        try {
+            EmployeeDto dto = getSelected();
+            FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/changePasswordPromptWindow.fxml");
+            Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
+            ChangePasswordPromptWindowController controller = loader.getController();
+            controller.initialize(dto.getId());
+            stage.showAndWait();
+        } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+
+    }
+
+    private void contextMenuSetup(){
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem create = new MenuItem("Create");
+        create.setOnAction( event -> create());
+        MenuItem edit = new MenuItem("Edit");
+        edit.setOnAction( event -> edit());
+        MenuItem delete = new MenuItem("Delete");
+        delete.setOnAction( event -> delete());
+        MenuItem enable = new MenuItem("Enable");
+        enable.setOnAction( event -> enable());
+        MenuItem disable = new MenuItem("Disable");
+        disable.setOnAction( event -> disable());
+        MenuItem password = new MenuItem("Password");
+        password.setOnAction( event -> changePassword());
+
+        contextMenu.getItems().add(create);
+        contextMenu.getItems().add(new SeparatorMenuItem());
+        contextMenu.getItems().add(edit);
+        contextMenu.getItems().add(delete);
+        contextMenu.getItems().add(new SeparatorMenuItem());
+        contextMenu.getItems().add(enable);
+        contextMenu.getItems().add(disable);
+        contextMenu.getItems().add(password);
+        tableView.setContextMenu(contextMenu);
     }
 
     private EmployeeDto getSelected() {

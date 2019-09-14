@@ -16,17 +16,17 @@ public class EmployeeDetailsDto {
     private String username;
     private String email;
     private String password;
-    private boolean active;
+    private boolean enabled;
     private List<AuthorityDto> authorities;
 
-    public EmployeeDetailsDto(int id, String name, String surname, String username, String email, String password, boolean active, List<AuthorityDto> authorities) {
+    public EmployeeDetailsDto(int id, String name, String surname, String username, String email, String password, boolean enabled, List<AuthorityDto> authorities) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.active = active;
+        this.enabled = enabled;
         this.authorities = authorities;
     }
 

@@ -38,7 +38,7 @@ public class EmployeeCredentialsController {
         String username = usernameTextfield.getText();
         String email = emailTextfield.getText();
         String password = passwordField.getText();
-        boolean active = detailsDto == null || detailsDto.isActive();
+        boolean active = detailsDto == null || detailsDto.isEnabled();
         List<AuthorityDto> authorities = new ArrayList<>();
         if(managementCheckbox.isSelected()){
             authorities.add(new AuthorityDto("MANAGEMENT"));

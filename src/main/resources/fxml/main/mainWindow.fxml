@@ -12,8 +12,8 @@
         <Tab text="Dashboard" closable="false">
             <fx:include source="../dashboard/dashboardWindow.fxml"/>
         </Tab>
-        <Tab text="Employees" closable="false">
-            <fx:include source="../employees/employeesWindow.fxml"/>
+        <Tab text="Management" closable="false">
+            <fx:include source="../management/managementWindow.fxml"/>
         </Tab>
     </TabPane>
     <Separator/>

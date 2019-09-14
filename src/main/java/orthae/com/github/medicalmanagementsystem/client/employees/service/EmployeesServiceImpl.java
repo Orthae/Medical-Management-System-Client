@@ -2,6 +2,7 @@ package orthae.com.github.medicalmanagementsystem.client.employees.service;
 
 import org.springframework.stereotype.Service;
 import orthae.com.github.medicalmanagementsystem.client.aspects.rest.RestClient;
+import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeChangePasswordDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
 
@@ -62,14 +63,18 @@ public class EmployeesServiceImpl implements EmployeesService {
         restClient.put("/employees", 200, dto);
     }
 
+    @Override
     public void activate(int id){
        restClient.post("/employees/" + id + "/active", 200);
     }
 
+    @Override
     public void deactivate(int id){
         restClient.delete("/employees/" + id + "/active", 200);
     }
 
-
-
+    @Override
+    public void changePassword(int id, EmployeeChangePasswordDto dto) {
+        restClient.put("/employees/" + id + "/password", 200, dto );
+    }
 }
