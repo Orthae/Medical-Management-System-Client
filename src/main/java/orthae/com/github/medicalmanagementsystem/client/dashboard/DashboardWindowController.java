@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import org.springframework.stereotype.Component;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
 
 @Component
 public class DashboardWindowController {

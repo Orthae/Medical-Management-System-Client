@@ -1,6 +1,6 @@
 package orthae.com.github.medicalmanagementsystem.client.aspects.settings;
 
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
 
 public interface SettingsService {
 

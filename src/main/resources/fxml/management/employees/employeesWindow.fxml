@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EmployeesWindowController" stylesheets="/style.css"
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EmployeesWindowController" stylesheets="/style.css"
             fx:id="employeesWindow">
     <top>
         <GridPane styleClass="employees-search-box">
@@ -22,7 +22,6 @@
             <ComboBox GridPane.rowIndex="1" GridPane.columnIndex="5"/>
             <Button text="Search" GridPane.rowIndex="0" onAction="#search" GridPane.columnIndex="6"/>
             <Button text="Clear" GridPane.rowIndex="0" onAction="#clear" GridPane.columnIndex="7"/>
-
         </GridPane>
     </top>
 

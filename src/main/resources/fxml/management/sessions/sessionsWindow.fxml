@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsWindowController"
+      prefHeight="400.0" prefWidth="600.0">
+    <GridPane>
+        <Label text="Username" GridPane.columnIndex="0"/>
+        <TextField GridPane.columnIndex="1"/>
+        <Label text="IP Address" GridPane.columnIndex="2"/>
+        <TextField GridPane.columnIndex="3"/>
+        <Label text="Active" GridPane.columnIndex="4"/>
+        <ComboBox GridPane.columnIndex="5"/>
+        <Label text="Date" GridPane.columnIndex="6"/>
+        <DatePicker GridPane.columnIndex="7"/>
+        <Button text="Search" onAction="#search" GridPane.columnIndex="8"/>
+        <Button text="Clear" GridPane.columnIndex="9"/>
+    </GridPane>
+    <!--suppress JavaFxUnresolvedFxIdReference -->
+    <fx:include fx:id="sessionsTable" source="sessionsTable.fxml"/>
+
+</VBox>

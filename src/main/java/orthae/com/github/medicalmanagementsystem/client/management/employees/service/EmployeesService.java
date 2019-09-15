@@ -1,8 +1,8 @@
-package orthae.com.github.medicalmanagementsystem.client.employees.service;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.service;
 
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeChangePasswordDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeChangePasswordDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDto;
 
 import java.util.List;
 

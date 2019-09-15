@@ -4,8 +4,11 @@
 <?import javafx.scene.control.TabPane?>
 <TabPane xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.ManagementWindow">
+         fx:controller="orthae.com.github.medicalmanagementsystem.client.management.ManagementWindow">
         <Tab text="Employees">
             <fx:include source="/fxml/management/employees/employeesWindow.fxml"/>
+        </Tab>
+        <Tab text="Sessions">
+            <fx:include source="/fxml/management/sessions/sessionsWindow.fxml"/>
         </Tab>
 </TabPane>

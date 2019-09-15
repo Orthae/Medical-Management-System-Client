@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import orthae.com.github.medicalmanagementsystem.client.aspects.rest.RestClient;
 import orthae.com.github.medicalmanagementsystem.client.aspects.settings.SettingsService;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
 
 @Service
 public class LoginServiceImpl implements LoginService {

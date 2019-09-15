@@ -1,11 +1,11 @@
-package orthae.com.github.medicalmanagementsystem.client.employees;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
 
 @Component
 public class AddEmployeeWindowController {

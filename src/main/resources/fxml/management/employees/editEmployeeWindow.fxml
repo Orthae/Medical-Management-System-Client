@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox fx:id="editEmployeeWindow" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="orthae.com.github.medicalmanagementsystem.client.employees.EditEmployeeWindowController"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EditEmployeeWindowController"
       stylesheets="/style.css" styleClass="add-edit-window">
     <Label text="Edit employee"/>
         <fx:include source="employeeCredentialsFields.fxml"/>

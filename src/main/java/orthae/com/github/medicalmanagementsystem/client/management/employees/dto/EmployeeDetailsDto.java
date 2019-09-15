@@ -1,4 +1,4 @@
-package orthae.com.github.medicalmanagementsystem.client.employees.dto;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,10 +1,10 @@
-package orthae.com.github.medicalmanagementsystem.client.employees.service;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.service;
 
 import org.springframework.stereotype.Service;
 import orthae.com.github.medicalmanagementsystem.client.aspects.rest.RestClient;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeChangePasswordDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeChangePasswordDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDto;
 
 import java.util.Arrays;
 import java.util.List;

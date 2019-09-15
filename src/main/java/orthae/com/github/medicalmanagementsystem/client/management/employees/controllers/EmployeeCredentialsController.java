@@ -1,12 +1,12 @@
-package orthae.com.github.medicalmanagementsystem.client.employees;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.stereotype.Component;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.AuthorityDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDetailsDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.AuthorityDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
 
 import java.util.ArrayList;
 import java.util.List;

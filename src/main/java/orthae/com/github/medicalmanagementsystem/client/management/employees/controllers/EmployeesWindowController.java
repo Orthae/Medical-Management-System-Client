@@ -1,4 +1,4 @@
-package orthae.com.github.medicalmanagementsystem.client.employees;
+package orthae.com.github.medicalmanagementsystem.client.management.employees.controllers;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,8 +10,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
-import orthae.com.github.medicalmanagementsystem.client.employees.dto.EmployeeDto;
-import orthae.com.github.medicalmanagementsystem.client.employees.service.EmployeesService;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDto;
+import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
+import orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController;
 
 @Component
 public class EmployeesWindowController {
@@ -162,6 +163,20 @@ public class EmployeesWindowController {
 
     }
 
+    public void sessions(){
+        try{
+            EmployeeDto dto = getSelected();
+            FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/sessions/sessionsTable.fxml");
+            Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
+            SessionsTableController controller = loader.getController();
+            controller.initialize(dto);
+            stage.setTitle("Sessions of " + dto.getName() + " " + dto.getSurname());
+            stage.showAndWait();
+        } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+    }
+
     private void contextMenuSetup(){
         ContextMenu contextMenu = new ContextMenu();
         MenuItem create = new MenuItem("Create");
@@ -176,6 +191,9 @@ public class EmployeesWindowController {
         disable.setOnAction( event -> disable());
         MenuItem password = new MenuItem("Password");
         password.setOnAction( event -> changePassword());
+        MenuItem sessions = new MenuItem("Sessions");
+        sessions.setOnAction(event -> sessions());
+
 
         contextMenu.getItems().add(create);
         contextMenu.getItems().add(new SeparatorMenuItem());
@@ -185,6 +203,7 @@ public class EmployeesWindowController {
         contextMenu.getItems().add(enable);
         contextMenu.getItems().add(disable);
         contextMenu.getItems().add(password);
+        contextMenu.getItems().add(sessions);
         tableView.setContextMenu(contextMenu);
     }
 

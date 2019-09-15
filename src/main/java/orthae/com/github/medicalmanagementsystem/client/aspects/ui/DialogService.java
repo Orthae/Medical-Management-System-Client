@@ -42,6 +42,7 @@ public class DialogService {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.showAndWait();
         return alert;
     }
 
