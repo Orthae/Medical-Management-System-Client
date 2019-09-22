@@ -1,0 +1,10 @@
+.sessions-search-box {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+    -fx-padding: 5, 5, 5, 5;
+}
+
+.sessions-date-picker {
+    -fx-min-width: 110;
+    -fx-max-width: 110;
+}

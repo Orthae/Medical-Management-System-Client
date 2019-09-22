@@ -48,11 +48,15 @@ public class SessionsTableController {
 
     public void initialize() {
         idColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getId()));
+        idColumn.setMinWidth(35);
+        idColumn.setMaxWidth(35);
         activeColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isActive()));
         usernameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getUsername()));
         expiryDateColumn.setCellValueFactory(param -> new SimpleLongProperty(param.getValue().getSessionExpiry().getTime()));
+        expiryDateColumn.setMinWidth(200);
         setDateColumn(expiryDateColumn);
         creationDateColumn.setCellValueFactory(param -> new SimpleLongProperty(param.getValue().getSessionCreation().getTime()));
+        creationDateColumn.setMinWidth(200);
         setDateColumn(creationDateColumn);
         ipAddressColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getIpAddress()));
         contextMenuSetup();
@@ -75,7 +79,10 @@ public class SessionsTableController {
         ContextMenu contextMenu = new ContextMenu();
         MenuItem copyIpAddress = new MenuItem("Copy IP");
         copyIpAddress.setOnAction(event -> copyIpAddress());
+        MenuItem invalidateSession = new MenuItem("Invalidate session");
+        invalidateSession.setOnAction(event -> endSession());
         contextMenu.getItems().add(copyIpAddress);
+        contextMenu.getItems().add(invalidateSession);
         tableView.setContextMenu(contextMenu);
     }
 
@@ -87,6 +94,15 @@ public class SessionsTableController {
             content.putString(sessionDto.getIpAddress());
             clipboard.setContent(content);
         } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+       }
+
+       private void endSession(){
+        try {
+            SessionDto sessionDto = getSelectedItem();
+            sessionService.invalidateSession(sessionDto.getId());
+        } catch (Exception e ){
             dialogService.errorAlert(e.getMessage());
         }
        }

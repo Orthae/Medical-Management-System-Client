@@ -22,7 +22,7 @@ public class EmployeesServiceImpl implements EmployeesService {
         return restClient.get("/employees/" + id, 200, EmployeeDetailsDto.class);
     }
 
-    public List<EmployeeDto> find(String name, String surname, String username, String email) {
+    public List<EmployeeDto> find(String name, String surname, String username, String email, Boolean active, Boolean enabled) {
         StringBuilder queryBuilder = new StringBuilder("/employees?");
         if (name != null) {
             queryBuilder.append("name=");
@@ -42,6 +42,16 @@ public class EmployeesServiceImpl implements EmployeesService {
         if (email != null) {
             queryBuilder.append("email=");
             queryBuilder.append(email);
+            queryBuilder.append("&");
+        }
+        if(active != null) {
+            queryBuilder.append("active=");
+            queryBuilder.append(active);
+            queryBuilder.append("&");
+        }
+        if(enabled != null) {
+            queryBuilder.append("enabled=");
+            queryBuilder.append(enabled);
             queryBuilder.append("&");
         }
         EmployeeDto[] employeeList = restClient.get(queryBuilder.toString(), 200, EmployeeDto[].class);

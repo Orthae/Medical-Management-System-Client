@@ -5,10 +5,10 @@
 <TabPane xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="orthae.com.github.medicalmanagementsystem.client.management.ManagementWindow">
-        <Tab text="Employees">
+        <Tab text="Employees" closable="false">
             <fx:include source="/fxml/management/employees/employeesWindow.fxml"/>
         </Tab>
-        <Tab text="Sessions">
+        <Tab text="Sessions" closable="false">
             <fx:include source="/fxml/management/sessions/sessionsWindow.fxml"/>
         </Tab>
 </TabPane>

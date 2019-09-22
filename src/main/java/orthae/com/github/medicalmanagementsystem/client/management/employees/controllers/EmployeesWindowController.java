@@ -13,6 +13,7 @@ import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDto;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
 import orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController;
+import orthae.com.github.medicalmanagementsystem.client.management.sessions.service.SessionService;
 
 @Component
 public class EmployeesWindowController {
@@ -28,6 +29,12 @@ public class EmployeesWindowController {
     private TextField usernameTextfield;
     @FXML
     private TextField emailTextfield;
+
+    @FXML
+    private ComboBox<String> enabledComboBox;
+    @FXML
+    private ComboBox<String> activeComboBox;
+
 
     @FXML
     private TableView<EmployeeDto> tableView;
@@ -48,14 +55,28 @@ public class EmployeesWindowController {
 
     private DialogService dialogService;
     private EmployeesService employeesService;
+    private SessionService sessionService;
 
-    public EmployeesWindowController(EmployeesService employeesService, DialogService dialogService) {
-        this.employeesService = employeesService;
+    public EmployeesWindowController(DialogService dialogService, EmployeesService employeesService, SessionService sessionService) {
         this.dialogService = dialogService;
+        this.employeesService = employeesService;
+        this.sessionService = sessionService;
     }
 
     public void initialize() {
         contextMenuSetup();
+        comboBoxSetup();
+        tableSetup();
+    }
+
+    private void comboBoxSetup(){
+        enabledComboBox.getItems().addAll("All", "Enabled", "Disabled");
+        enabledComboBox.getSelectionModel().select(0);
+        activeComboBox.getItems().addAll("All", "Active", "Inactive");
+        activeComboBox.getSelectionModel().select(0);
+    }
+
+    private void tableSetup(){
         idColumn.setCellValueFactory(param -> new SimpleIntegerProperty(param.getValue().getId()));
         idColumn.setMinWidth(35);
         idColumn.setMaxWidth(35);
@@ -69,8 +90,60 @@ public class EmployeesWindowController {
         emailColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getEmail()));
         emailColumn.setMinWidth(200);
         enabledColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isEnabled()));
+        enabledColumn.setCellFactory(callback -> {
+                TableCell<EmployeeDto, Boolean> cell = new TableCell<EmployeeDto, Boolean>() {
+                    @Override
+                    protected void updateItem(Boolean item, boolean empty) {
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            Label label = new Label();
+                            if(item){
+                                label.setText("Enabled");
+                             } else{
+                                label.setText("Disabled");
+                            }
+                            setGraphic(label);
+                        }
+                    }
+                };
+                cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                return cell;
+            });
         activeColumn.setCellValueFactory(param -> new SimpleBooleanProperty(param.getValue().isActive()));
+        activeColumn.setCellFactory(callback -> {
+            TableCell<EmployeeDto, Boolean> cell = new TableCell<EmployeeDto, Boolean>() {
+                @Override
+                protected void updateItem(Boolean item, boolean empty) {
+                    if (empty) {
+                        setGraphic(null);
+                    } else {
+                        Label label = new Label();
+                        if(item){
+                            label.setText("Active");
+                        } else{
+                            label.setText("Inactive");
+                        }
+                        setGraphic(label);
+                    }
+                }
+            };
+            cell.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+            return cell;
+        });
     }
+
+    private Boolean getComboBoxBool(ComboBox comboBox){
+        switch (comboBox.getSelectionModel().getSelectedIndex()){
+            case 1:
+                return true;
+            case 2:
+                return false;
+            default:
+                return null;
+        }
+    }
+
 
 
     public void search() {
@@ -79,18 +152,23 @@ public class EmployeesWindowController {
             String surname = surnameTextfield.getText().trim().isEmpty() ? null : surnameTextfield.getText().trim();
             String username = usernameTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
             String email = emailTextfield.getText().trim().isEmpty() ? null : usernameTextfield.getText().trim();
+            Boolean active = getComboBoxBool(activeComboBox);
+            Boolean enabled = getComboBoxBool(enabledComboBox);
             tableView.getItems().clear();
-            tableView.getItems().addAll(employeesService.find(name, surname, username, email));
+            tableView.getItems().addAll(employeesService.find(name, surname, username, email, active ,enabled));
         } catch (Exception e) {
             dialogService.errorAlert(e.getMessage());
         }
     }
+
 
     public void clear() {
         nameTextfield.clear();
         surnameTextfield.clear();
         usernameTextfield.clear();
         emailTextfield.clear();
+        activeComboBox.getSelectionModel().select(0);
+        enabledComboBox.getSelectionModel().select(0);
     }
 
     public void delete() {
@@ -163,7 +241,7 @@ public class EmployeesWindowController {
 
     }
 
-    public void sessions(){
+    public void employeeSessions(){
         try{
             EmployeeDto dto = getSelected();
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/sessions/sessionsTable.fxml");
@@ -172,6 +250,15 @@ public class EmployeesWindowController {
             controller.initialize(dto);
             stage.setTitle("Sessions of " + dto.getName() + " " + dto.getSurname());
             stage.showAndWait();
+        } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+    }
+
+    private void invalidateSessions(){
+        try {
+            EmployeeDto dto = getSelected();
+            sessionService.invalidateEmployeeSessions(dto.getId());
         } catch (Exception e){
             dialogService.errorAlert(e.getMessage());
         }
@@ -191,9 +278,10 @@ public class EmployeesWindowController {
         disable.setOnAction( event -> disable());
         MenuItem password = new MenuItem("Password");
         password.setOnAction( event -> changePassword());
-        MenuItem sessions = new MenuItem("Sessions");
-        sessions.setOnAction(event -> sessions());
-
+        MenuItem viewSessions = new MenuItem("View sessions");
+        viewSessions.setOnAction(event -> employeeSessions());
+        MenuItem invalidateSessions = new MenuItem("Invalidate sessions");
+        invalidateSessions.setOnAction(event -> invalidateSessions() );
 
         contextMenu.getItems().add(create);
         contextMenu.getItems().add(new SeparatorMenuItem());
@@ -203,7 +291,8 @@ public class EmployeesWindowController {
         contextMenu.getItems().add(enable);
         contextMenu.getItems().add(disable);
         contextMenu.getItems().add(password);
-        contextMenu.getItems().add(sessions);
+        contextMenu.getItems().add(viewSessions);
+        contextMenu.getItems().add(invalidateSessions);
         tableView.setContextMenu(contextMenu);
     }
 

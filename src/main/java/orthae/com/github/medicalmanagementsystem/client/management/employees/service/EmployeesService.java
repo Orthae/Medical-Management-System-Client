@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmployeesService {
 
     EmployeeDetailsDto find(int id);
-    List<EmployeeDto> find(String name, String surname, String username, String email);
+    List<EmployeeDto> find(String name, String surname, String username, String email, Boolean active, Boolean enabled);
     void add(EmployeeDetailsDto dto);
     void update(EmployeeDetailsDto dto);
     void activate(int id);
