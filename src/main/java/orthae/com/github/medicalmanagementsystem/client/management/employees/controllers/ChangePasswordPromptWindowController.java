@@ -14,9 +14,7 @@ public class ChangePasswordPromptWindowController {
     private VBox changePasswordPromptWindow;
 
     @FXML
-    private PasswordField passwordField;
-    @FXML
-    private PasswordField retypePasswordField;
+    private PasswordField passwordField, retypePasswordField;
 
     private EmployeesService employeesService;
     private int employeeId;

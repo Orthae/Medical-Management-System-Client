@@ -8,9 +8,10 @@
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.AddEmployeeWindowController"
       stylesheets="/style.css" styleClass="add-edit-window">
     <Label text="Create new employee"/>
-        <fx:include source="employeeCredentialsFields.fxml"/>
-        <HBox styleClass="add-edit-button-box">
-            <Button text="Create" styleClass="add-edit-button" onAction="#add"/>
-            <Button text="Cancel" styleClass="add-edit-button" onAction="#close"/>
-        </HBox>
+    <!--suppress JavaFxUnresolvedFxIdReference -->
+    <fx:include fx:id="employeeCredentialsFields" source="employeeCredentialsFields.fxml"/>
+    <HBox styleClass="add-edit-button-box">
+        <Button text="Create" styleClass="add-edit-button" onAction="#add"/>
+        <Button text="Cancel" styleClass="add-edit-button" onAction="#close"/>
+    </HBox>
 </VBox>

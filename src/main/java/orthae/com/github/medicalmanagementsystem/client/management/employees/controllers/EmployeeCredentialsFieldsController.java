@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.AuthorityDto;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
@@ -12,16 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class EmployeeCredentialsController {
+@Scope("prototype")
+public class EmployeeCredentialsFieldsController {
 
     @FXML
-    private TextField nameTextfield;
-    @FXML
-    private TextField surnameTextfield;
-    @FXML
-    private TextField usernameTextfield;
-    @FXML
-    private TextField emailTextfield;
+    private TextField nameTextfield, surnameTextfield, usernameTextfield, emailTextfield;
     @FXML
     private PasswordField passwordField;
 

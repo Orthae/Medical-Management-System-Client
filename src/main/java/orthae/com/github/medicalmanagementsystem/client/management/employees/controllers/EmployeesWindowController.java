@@ -22,36 +22,19 @@ public class EmployeesWindowController {
     private BorderPane employeesWindow;
 
     @FXML
-    private TextField nameTextfield;
-    @FXML
-    private TextField surnameTextfield;
-    @FXML
-    private TextField usernameTextfield;
-    @FXML
-    private TextField emailTextfield;
+    private TextField nameTextfield, surnameTextfield, usernameTextfield, emailTextfield;
 
     @FXML
-    private ComboBox<String> enabledComboBox;
-    @FXML
-    private ComboBox<String> activeComboBox;
-
+    private ComboBox<String> enabledComboBox, activeComboBox;
 
     @FXML
     private TableView<EmployeeDto> tableView;
     @FXML
     private TableColumn<EmployeeDto, Number> idColumn;
     @FXML
-    private TableColumn<EmployeeDto, String> nameColumn;
+    private TableColumn<EmployeeDto, String> nameColumn, surnameColumn, usernameColumn, emailColumn;
     @FXML
-    private TableColumn<EmployeeDto, String> surnameColumn;
-    @FXML
-    private TableColumn<EmployeeDto, String> usernameColumn;
-    @FXML
-    private TableColumn<EmployeeDto, String> emailColumn;
-    @FXML
-    private TableColumn<EmployeeDto, Boolean> enabledColumn;
-    @FXML
-    private TableColumn<EmployeeDto, Boolean> activeColumn;
+    private TableColumn<EmployeeDto, Boolean> enabledColumn, activeColumn;
 
     private DialogService dialogService;
     private EmployeesService employeesService;
@@ -171,7 +154,7 @@ public class EmployeesWindowController {
         enabledComboBox.getSelectionModel().select(0);
     }
 
-    public void delete() {
+    private void delete() {
         try {
             EmployeeDto dto = getSelected();
             Alert alert = dialogService.warringAlert("Are you sure you want to delete selected employee?");
@@ -185,7 +168,7 @@ public class EmployeesWindowController {
         }
     }
 
-    public void create() {
+    private void create() {
         try {
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/addEmployeeWindow.fxml");
             Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
@@ -195,7 +178,7 @@ public class EmployeesWindowController {
         }
     }
 
-    public void edit() {
+    private void edit() {
         try {
             EmployeeDto dto = getSelected();
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/editEmployeeWindow.fxml");
@@ -208,7 +191,7 @@ public class EmployeesWindowController {
         }
     }
 
-    public void enable() {
+    private void enable() {
         try {
             EmployeeDto dto = getSelected();
             employeesService.activate(dto.getId());
@@ -218,7 +201,7 @@ public class EmployeesWindowController {
     }
 
 
-    public void disable() {
+    private void disable() {
         try {
             EmployeeDto dto = getSelected();
             employeesService.deactivate(dto.getId());
@@ -227,7 +210,7 @@ public class EmployeesWindowController {
         }
     }
 
-    public void changePassword(){
+    private void changePassword(){
         try {
             EmployeeDto dto = getSelected();
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/employees/changePasswordPromptWindow.fxml");
@@ -241,7 +224,7 @@ public class EmployeesWindowController {
 
     }
 
-    public void employeeSessions(){
+    private void employeeSessions(){
         try{
             EmployeeDto dto = getSelected();
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/sessions/sessionsTable.fxml");
@@ -276,23 +259,19 @@ public class EmployeesWindowController {
         enable.setOnAction( event -> enable());
         MenuItem disable = new MenuItem("Disable");
         disable.setOnAction( event -> disable());
-        MenuItem password = new MenuItem("Password");
+        MenuItem password = new MenuItem("Change password");
         password.setOnAction( event -> changePassword());
+        MenuItem createSchedule = new MenuItem("Create schedule");
+
+        MenuItem viewSchedule = new MenuItem("View schedule");
+
         MenuItem viewSessions = new MenuItem("View sessions");
         viewSessions.setOnAction(event -> employeeSessions());
         MenuItem invalidateSessions = new MenuItem("Invalidate sessions");
         invalidateSessions.setOnAction(event -> invalidateSessions() );
 
-        contextMenu.getItems().add(create);
-        contextMenu.getItems().add(new SeparatorMenuItem());
-        contextMenu.getItems().add(edit);
-        contextMenu.getItems().add(delete);
-        contextMenu.getItems().add(new SeparatorMenuItem());
-        contextMenu.getItems().add(enable);
-        contextMenu.getItems().add(disable);
-        contextMenu.getItems().add(password);
-        contextMenu.getItems().add(viewSessions);
-        contextMenu.getItems().add(invalidateSessions);
+        contextMenu.getItems().addAll(create, new SeparatorMenuItem(), edit, delete, new SeparatorMenuItem(), enable, disable, password, new SeparatorMenuItem(),
+                createSchedule, viewSchedule, new SeparatorMenuItem(), viewSessions, invalidateSessions);
         tableView.setContextMenu(contextMenu);
     }
 
