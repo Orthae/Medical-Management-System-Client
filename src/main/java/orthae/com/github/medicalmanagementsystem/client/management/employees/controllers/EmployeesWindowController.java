@@ -261,17 +261,13 @@ public class EmployeesWindowController {
         disable.setOnAction( event -> disable());
         MenuItem password = new MenuItem("Change password");
         password.setOnAction( event -> changePassword());
-        MenuItem createSchedule = new MenuItem("Create schedule");
-
-        MenuItem viewSchedule = new MenuItem("View schedule");
-
         MenuItem viewSessions = new MenuItem("View sessions");
         viewSessions.setOnAction(event -> employeeSessions());
         MenuItem invalidateSessions = new MenuItem("Invalidate sessions");
         invalidateSessions.setOnAction(event -> invalidateSessions() );
 
-        contextMenu.getItems().addAll(create, new SeparatorMenuItem(), edit, delete, new SeparatorMenuItem(), enable, disable, password, new SeparatorMenuItem(),
-                createSchedule, viewSchedule, new SeparatorMenuItem(), viewSessions, invalidateSessions);
+        contextMenu.getItems().addAll(create, new SeparatorMenuItem(), edit, delete, new SeparatorMenuItem(), enable, disable, password,
+                new SeparatorMenuItem(), viewSessions, invalidateSessions);
         tableView.setContextMenu(contextMenu);
     }
 

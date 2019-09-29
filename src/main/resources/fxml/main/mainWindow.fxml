@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
@@ -14,6 +12,9 @@
         </Tab>
         <Tab text="Management" closable="false">
             <fx:include source="../management/managementWindow.fxml"/>
+        </Tab>
+        <Tab text="Business" closable="false">
+
         </Tab>
     </TabPane>
     <Separator/>
