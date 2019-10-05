@@ -14,6 +14,7 @@ import orthae.com.github.medicalmanagementsystem.client.management.employees.dto
 import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
 import orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController;
 import orthae.com.github.medicalmanagementsystem.client.management.sessions.service.SessionService;
+import orthae.com.github.medicalmanagementsystem.client.management.workdays.AddWorkdaysWindowController;
 
 @Component
 public class EmployeesWindowController {
@@ -247,6 +248,19 @@ public class EmployeesWindowController {
         }
     }
 
+    private void createWorkdays(){
+        try{
+            EmployeeDto dto = getSelected();
+            FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/workdays/addWorkdayWindow.fxml");
+            Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
+            AddWorkdaysWindowController controller = loader.getController();
+            controller.initialize(dto.getId());
+            stage.showAndWait();
+        } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+    }
+
     private void contextMenuSetup(){
         ContextMenu contextMenu = new ContextMenu();
         MenuItem create = new MenuItem("Create");
@@ -264,10 +278,12 @@ public class EmployeesWindowController {
         MenuItem viewSessions = new MenuItem("View sessions");
         viewSessions.setOnAction(event -> employeeSessions());
         MenuItem invalidateSessions = new MenuItem("Invalidate sessions");
-        invalidateSessions.setOnAction(event -> invalidateSessions() );
+        invalidateSessions.setOnAction(event -> invalidateSessions());
+        MenuItem createWorkdays = new MenuItem("Create workdays");
+        createWorkdays.setOnAction(event -> createWorkdays());
 
         contextMenu.getItems().addAll(create, new SeparatorMenuItem(), edit, delete, new SeparatorMenuItem(), enable, disable, password,
-                new SeparatorMenuItem(), viewSessions, invalidateSessions);
+                new SeparatorMenuItem(), viewSessions, invalidateSessions, createWorkdays);
         tableView.setContextMenu(contextMenu);
     }
 

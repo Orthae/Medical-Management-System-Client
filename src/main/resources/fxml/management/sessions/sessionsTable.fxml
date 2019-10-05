@@ -2,10 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController"
-      prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController">
     <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="idColumn" text="Id"/>

@@ -1,0 +1,7 @@
+.workdays-date-field{
+    -fx-max-width: 105;
+}
+
+.workdays-hour-field {
+    -fx-max-width: 55;
+}

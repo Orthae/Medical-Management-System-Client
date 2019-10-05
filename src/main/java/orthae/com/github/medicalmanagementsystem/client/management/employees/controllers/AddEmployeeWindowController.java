@@ -15,17 +15,20 @@ public class AddEmployeeWindowController {
     @FXML
     private VBox addEmployeeWindow;
 
-    private EmployeesService employeesService;
-    private EmployeeCredentialsFieldsController credentialsFields;
+    @FXML
+    private EmployeeCredentialsFieldsController employeeCredentialsFieldsController;
 
-    public AddEmployeeWindowController(EmployeesService employeesService, EmployeeCredentialsFieldsController credentialsFields ){
+    private EmployeesService employeesService;
+
+
+    public AddEmployeeWindowController(EmployeesService employeesService){
         this.employeesService = employeesService;
-        this.credentialsFields = credentialsFields;
     }
 
     public void add() {
         try {
-            EmployeeDetailsDto detailsDto = credentialsFields.processForm();
+
+            EmployeeDetailsDto detailsDto = employeeCredentialsFieldsController.processForm();
             employeesService.add(detailsDto);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText(null);
