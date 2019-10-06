@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
@@ -22,12 +23,13 @@ public class AddWorkdaysWindowController {
     private WorkdayService workdayService;
     private DialogService dialogService;
 
+//  TODO externalize to database ?
 
+    @Value("${open-hour}")
+    private int openHour;
 
-    private final int LOWEST_START_HOUR = 8;
-    private final int HIGHEST_START_HOUR = 16;
-    private final int LOWEST_END_HOUR = 12;
-    private final int HIGHEST_END_HOUR = 20;
+    @Value("${close-hour}")
+    private int closeHour;
 
     @FXML
     private WorkdaysTableController workdaysTableController;
@@ -49,8 +51,8 @@ public class AddWorkdaysWindowController {
     }
 
     private void setupSpinners(){
-        startHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(LOWEST_START_HOUR, HIGHEST_START_HOUR));
-        endHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(LOWEST_END_HOUR, HIGHEST_END_HOUR));
+        startHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(openHour, closeHour));
+        endHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(openHour, closeHour));
     }
 
     public void initialize(int employeeId){
@@ -61,8 +63,6 @@ public class AddWorkdaysWindowController {
     public void add(){
         try {
             WorkdayDto dto = new WorkdayDto();
-//            if (datePicker.getValue() == null)
-//                throw new RuntimeException("You didn't select any date.");
             dto.setDate(datePicker.getValue());
             dto.setStartHour(LocalTime.of(startHourSpinner.getValue(), 0));
             dto.setEndHour(LocalTime.of(endHourSpinner.getValue(), 0));

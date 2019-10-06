@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EmployeesWindowController" stylesheets="/style.css"
+            fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EmployeesWindowController" stylesheets="/css/employees.css"
             fx:id="employeesWindow">
     <top>
         <GridPane styleClass="employees-search-box">
@@ -17,11 +17,11 @@
             <Label text="Email" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
             <TextField fx:id="emailTextfield" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
             <Label text="Enabled" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
-            <ComboBox fx:id="enabledComboBox" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+            <ComboBox styleClass="employees-combobox" fx:id="enabledComboBox" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
             <Label text="Active" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
-            <ComboBox fx:id="activeComboBox" GridPane.rowIndex="1" GridPane.columnIndex="5"/>
-            <Button text="Search" GridPane.rowIndex="0" onAction="#search" GridPane.columnIndex="6"/>
-            <Button text="Clear" GridPane.rowIndex="0" onAction="#clear" GridPane.columnIndex="7"/>
+            <ComboBox styleClass="employees-combobox" fx:id="activeComboBox" GridPane.rowIndex="1" GridPane.columnIndex="5"/>
+            <Button styleClass="employees-button" text="Search" GridPane.rowIndex="0" onAction="#search" GridPane.columnIndex="6"/>
+            <Button styleClass="employees-button" text="Clear" GridPane.rowIndex="0" onAction="#clear" GridPane.columnIndex="7"/>
         </GridPane>
     </top>
 
