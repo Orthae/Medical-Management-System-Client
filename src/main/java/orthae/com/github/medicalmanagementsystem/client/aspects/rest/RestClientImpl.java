@@ -33,14 +33,14 @@ public class RestClientImpl implements RestClient {
     @Override
     public <T, D> T post(String uri, int successCode, D requestBody, Class<T> aClass) {
         ClientResponse response = client.post().uri(uri).header("Authorization", "Bearer " + settingsService.getSessionToken())
-                .body(BodyInserters.fromObject(requestBody)).exchange().block();
+                .body(BodyInserters.fromValue(requestBody)).exchange().block();
         return handleResponse(response, successCode, aClass);
     }
 
     @Override
     public <D> void post(String uri, int successCode, D requestBody) {
         ClientResponse response = client.post().uri(uri).header("Authorization", "Bearer " + settingsService.getSessionToken())
-                .body(BodyInserters.fromObject(requestBody)).exchange().block();
+                .body(BodyInserters.fromValue(requestBody)).exchange().block();
         handleResponse(response, successCode);
     }
 
@@ -58,7 +58,7 @@ public class RestClientImpl implements RestClient {
     @Override
     public <B> void put(String uri, int successCode, B requestBody) {
         ClientResponse response = client.put().uri(uri).header("Authorization", "Bearer " + settingsService.getSessionToken())
-                .body(BodyInserters.fromObject(requestBody)).exchange().block();
+                .body(BodyInserters.fromValue(requestBody)).exchange().block();
         handleResponse(response, successCode);
     }
 

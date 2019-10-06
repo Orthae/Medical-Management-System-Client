@@ -7,6 +7,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
 import orthae.com.github.medicalmanagementsystem.client.management.workdays.dto.WorkdayDto;
 import orthae.com.github.medicalmanagementsystem.client.management.workdays.service.WorkdayService;
 
@@ -17,8 +18,11 @@ import java.util.List;
 @Scope("prototype")
 public class AddWorkdaysWindowController {
 
-    private WorkdayService workdayService;
     private int employeeId;
+    private WorkdayService workdayService;
+    private DialogService dialogService;
+
+
 
     private final int LOWEST_START_HOUR = 8;
     private final int HIGHEST_START_HOUR = 16;
@@ -39,6 +43,11 @@ public class AddWorkdaysWindowController {
         setupSpinners();
     }
 
+    public AddWorkdaysWindowController(WorkdayService workdayService, DialogService dialogService) {
+        this.workdayService = workdayService;
+        this.dialogService = dialogService;
+    }
+
     private void setupSpinners(){
         startHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(LOWEST_START_HOUR, HIGHEST_START_HOUR));
         endHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(LOWEST_END_HOUR, HIGHEST_END_HOUR));
@@ -49,21 +58,21 @@ public class AddWorkdaysWindowController {
         refreshTable();
     }
 
-    public AddWorkdaysWindowController(WorkdayService workdayService) {
-        this.workdayService = workdayService;
-    }
-
-
     public void add(){
-        WorkdayDto dto = new WorkdayDto();
-        if(datePicker.getValue() == null)
-            throw new RuntimeException("IS NULL");
-        dto.setDate(datePicker.getValue());
-        dto.setStartHour(LocalTime.of(startHourSpinner.getValue(), 0));
-        dto.setEndHour(LocalTime.of(endHourSpinner.getValue(), 0));
-        workdayService.createWorkday(employeeId, dto);
-        refreshTable();
-    }
+        try {
+            WorkdayDto dto = new WorkdayDto();
+//            if (datePicker.getValue() == null)
+//                throw new RuntimeException("You didn't select any date.");
+            dto.setDate(datePicker.getValue());
+            dto.setStartHour(LocalTime.of(startHourSpinner.getValue(), 0));
+            dto.setEndHour(LocalTime.of(endHourSpinner.getValue(), 0));
+            workdayService.createWorkday(employeeId, dto);
+            refreshTable();
+        } catch (Exception e){
+            dialogService.errorAlert(e.getMessage());
+        }
+
+        }
 
 
     private void refreshTable(){
