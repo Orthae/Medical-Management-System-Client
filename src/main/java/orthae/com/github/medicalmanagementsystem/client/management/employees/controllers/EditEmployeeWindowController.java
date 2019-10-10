@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDetailsDto;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeDto;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
@@ -21,10 +22,11 @@ public class EditEmployeeWindowController {
     private EmployeeCredentialsFieldsController employeeCredentialsFieldsController;
 
     private EmployeesService employeesService;
+    private DialogService dialogService;
 
-
-    public EditEmployeeWindowController(EmployeesService employeesService){
+    public EditEmployeeWindowController(EmployeesService employeesService, DialogService dialogService) {
         this.employeesService = employeesService;
+        this.dialogService = dialogService;
     }
 
     public void initialize(EmployeeDto dto){
@@ -36,10 +38,7 @@ public class EditEmployeeWindowController {
         try {
             EmployeeDetailsDto detailsDto = employeeCredentialsFieldsController.processForm();
             employeesService.update(detailsDto);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Updated employee data.");
-            alert.showAndWait();
+            dialogService.infoAlert("Updated employee data.");
             close();
         } catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR);

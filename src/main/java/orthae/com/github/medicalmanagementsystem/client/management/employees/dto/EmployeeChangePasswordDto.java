@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class EmployeeChangePasswordDto {
     private String password;
-    private String retypePassword;
+    private String rePassword;
 
     public EmployeeChangePasswordDto(String password, String retypePassword) {
         this.password = password;
-        this.retypePassword = retypePassword;
+        this.rePassword = retypePassword;
     }
 }

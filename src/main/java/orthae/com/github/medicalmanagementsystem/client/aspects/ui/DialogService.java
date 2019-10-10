@@ -56,5 +56,13 @@ public class DialogService {
         return alert;
     }
 
+    public Alert infoAlert(String message){
+        Alert alert = new Alert((Alert.AlertType.INFORMATION));
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+        return alert;
+    }
+
 
 }

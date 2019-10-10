@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.VBox;
 import org.springframework.stereotype.Component;
+import orthae.com.github.medicalmanagementsystem.client.aspects.ui.DialogService;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.dto.EmployeeChangePasswordDto;
 import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
 
@@ -16,13 +17,13 @@ public class ChangePasswordPromptWindowController {
     @FXML
     private PasswordField passwordField, retypePasswordField;
 
+    private DialogService dialogService;
     private EmployeesService employeesService;
     private int employeeId;
 
-
-    public ChangePasswordPromptWindowController(EmployeesService employeesService) {
+    public ChangePasswordPromptWindowController(DialogService dialogService, EmployeesService employeesService) {
+        this.dialogService = dialogService;
         this.employeesService = employeesService;
-        this.employeeId = 0;
     }
 
     public void initialize(int employeeId) {
@@ -41,10 +42,9 @@ public class ChangePasswordPromptWindowController {
             EmployeeChangePasswordDto dto = processForm();
             employeesService.changePassword(employeeId, dto);
             changePasswordPromptWindow.getScene().getWindow().hide();
+            dialogService.infoAlert("Password changed");
         } catch (Exception e) {
-//  TODO add alert window
-            System.out.println(e.getMessage());
-            System.out.println("Error while changing password");
+            dialogService.errorAlert(e.getMessage());
         }
     }
 

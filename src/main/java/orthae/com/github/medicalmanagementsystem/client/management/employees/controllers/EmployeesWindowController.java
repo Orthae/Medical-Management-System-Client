@@ -161,6 +161,7 @@ public class EmployeesWindowController {
             Alert alert = dialogService.warringAlert("Are you sure you want to delete selected employee?");
             if (alert.getResult() == ButtonType.YES) {
                 employeesService.delete(dto.getId());
+                dialogService.infoAlert("Employee deleted.");
                 tableView.getItems().remove(dto);
             }
             tableView.getSelectionModel().clearSelection();
@@ -196,6 +197,7 @@ public class EmployeesWindowController {
         try {
             EmployeeDto dto = getSelected();
             employeesService.activate(dto.getId());
+            dialogService.infoAlert("Employee enabled.");
         } catch (Exception e) {
             dialogService.errorAlert(e.getMessage());
         }
@@ -206,6 +208,7 @@ public class EmployeesWindowController {
         try {
             EmployeeDto dto = getSelected();
             employeesService.deactivate(dto.getId());
+            dialogService.infoAlert("Employee disabled.");
         } catch (Exception e) {
             dialogService.errorAlert(e.getMessage());
         }
@@ -242,7 +245,11 @@ public class EmployeesWindowController {
     private void invalidateSessions(){
         try {
             EmployeeDto dto = getSelected();
+            Alert alert = dialogService.warringAlert("Do you want to invalidate all employee sessions?");
+            if(alert.getResult() == ButtonType.YES){
             sessionService.invalidateEmployeeSessions(dto.getId());
+                dialogService.infoAlert("All employee sessions has been invalidated.");
+            }
         } catch (Exception e){
             dialogService.errorAlert(e.getMessage());
         }
