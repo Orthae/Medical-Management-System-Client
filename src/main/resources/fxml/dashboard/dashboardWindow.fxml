@@ -8,6 +8,5 @@
       fx:controller="orthae.com.github.medicalmanagementsystem.client.dashboard.DashboardWindowController" prefHeight="400.0" prefWidth="600.0">
     <HBox>
         <Label fx:id="nameLabel" text="NAME"/>
-        <Label fx:id="surnameLabel" text="Surname"/>
     </HBox>
 </VBox>

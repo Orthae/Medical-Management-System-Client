@@ -11,8 +11,6 @@ public class DashboardWindowController {
 
     @FXML
     private Label nameLabel;
-    @FXML
-    private Label surnameLabel;
 
     private SettingsService settingsService;
 
@@ -24,7 +22,6 @@ public class DashboardWindowController {
     public void initialize(){
         EmployeeDetailsDto loggedEmployee = settingsService.getLoggedEmployee();
         nameLabel.setText("Welcome, " + loggedEmployee.getName() + " " + loggedEmployee.getSurname());
-        surnameLabel.setText(loggedEmployee.getSurname());
     }
 
 
