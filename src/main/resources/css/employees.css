@@ -1,4 +1,4 @@
-.employees-search-box {
+.employees-grid-pane {
     -fx-hgap: 5;
     -fx-vgap: 5;
     -fx-padding: 5, 5, 5, 5;
@@ -14,4 +14,14 @@
 
 .employees-combobox {
     -fx-max-width: 90;
+}
+
+.add-edit-window {
+    -fx-padding: 5, 5, 5, 5;
+    -fx-alignment: CENTER;
+}
+
+.add-edit-button-box {
+    -fx-alignment: CENTER;
+    -fx-spacing: 5;
 }

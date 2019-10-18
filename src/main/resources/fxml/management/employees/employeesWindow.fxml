@@ -7,7 +7,7 @@
             fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EmployeesWindowController" stylesheets="/css/employees.css"
             fx:id="employeesWindow">
     <top>
-        <GridPane styleClass="employees-search-box">
+        <GridPane styleClass="employees-grid-pane">
             <Label text="Name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <TextField fx:id="nameTextfield" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
             <Label text="Surname" GridPane.rowIndex="1" GridPane.columnIndex="0"/>

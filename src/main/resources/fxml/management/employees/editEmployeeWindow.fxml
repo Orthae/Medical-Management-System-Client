@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.VBox?>
 <VBox fx:id="editEmployeeWindow" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.employees.controllers.EditEmployeeWindowController"
-      stylesheets="/style.css" styleClass="add-edit-window">
+      stylesheets="/css/employees.css" styleClass="add-edit-window">
     <Label text="Edit employee"/>
     <!--suppress JavaFxUnresolvedFxIdReference -->
     <fx:include fx:id="employeeCredentialsFields" source="employeeCredentialsFields.fxml"/>
     <HBox styleClass="add-edit-button-box">
-        <Button text="Edit" styleClass="add-edit-button" onAction="#edit"/>
-        <Button text="Cancel" styleClass="add-edit-button" onAction="#close"/>
+        <Button text="Edit" styleClass="employees-button" onAction="#edit"/>
+        <Button text="Cancel" styleClass="employees-button" onAction="#close"/>
     </HBox>
 </VBox>
