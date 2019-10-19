@@ -5,3 +5,14 @@
 .workdays-hour-field {
     -fx-max-width: 55;
 }
+
+.workdays-grid-pane {
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+    -fx-padding: 5, 5, 5, 5;
+}
+
+.workdays-box {
+    -fx-spacing: 5;
+    -fx-alignment: CENTER;
+}

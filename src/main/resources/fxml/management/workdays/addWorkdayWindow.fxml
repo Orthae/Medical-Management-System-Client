@@ -5,15 +5,23 @@
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/workdays.css"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.AddWorkdaysWindowController">
 
-    <GridPane>
-        <Label text="Date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="workdays-date-field" />
-        <Label text="Start" GridPane.columnIndex="2" />
-        <Spinner fx:id="startHourSpinner" GridPane.columnIndex="3" styleClass="workdays-hour-field"/>
-        <Label text="End" GridPane.columnIndex="4" />
-        <Spinner fx:id="endHourSpinner" GridPane.columnIndex="5" styleClass="workdays-hour-field"/>
-        <Button text="add" onAction="#add" GridPane.columnIndex="6"/>
-    </GridPane>
+    <VBox styleClass="workdays-box">
+        <HBox styleClass="workdays-box">
+            <Label text="Month"/>
+            <ComboBox fx:id="monthCombobox"/>
+            <Label text="Year"/>
+            <Spinner fx:id="yearSpinner" />
+        </HBox>
+        <HBox styleClass="workdays-box">
+            <Label text="Date" />
+            <DatePicker fx:id="datePicker" styleClass="workdays-date-field" />
+            <Label text="Start" />
+            <Spinner fx:id="startHourSpinner"  styleClass="workdays-hour-field"/>
+            <Label text="End"  />
+            <Spinner fx:id="endHourSpinner"  styleClass="workdays-hour-field"/>
+        </HBox>
+        <Button text="add" onAction="#add" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    </VBox>
 
     <fx:include fx:id="workdaysTable" source="workdaysTable.fxml"/>
 

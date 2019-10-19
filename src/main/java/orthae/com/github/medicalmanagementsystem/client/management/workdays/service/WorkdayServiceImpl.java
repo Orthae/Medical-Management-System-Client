@@ -17,8 +17,8 @@ public class WorkdayServiceImpl implements WorkdayService {
     }
 
     @Override
-    public List<WorkdayDto> getByEmployeeId(int employeeId) {
-        WorkdayDto[] list = restClient.get("/employees/" + employeeId + "/workdays", 200, WorkdayDto[].class);
+    public List<WorkdayDto> getByEmployeeIdAndMonth(int employeeId, int month, int year) {
+        WorkdayDto[] list = restClient.get("/employees/" + employeeId + "/workdays/" + month + "/" + year , 200, WorkdayDto[].class);
         return Arrays.asList(list);
     }
 

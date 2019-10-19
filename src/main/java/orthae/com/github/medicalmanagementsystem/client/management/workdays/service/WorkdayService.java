@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface WorkdayService {
 
-    List<WorkdayDto> getByEmployeeId(int employeeId);
+    List<WorkdayDto> getByEmployeeIdAndMonth(int employeeId, int month, int year);
     void createWorkday(int employeeId, WorkdayDto dto);
 
 }
