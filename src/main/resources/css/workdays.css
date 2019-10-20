@@ -16,3 +16,7 @@
     -fx-spacing: 5;
     -fx-alignment: CENTER;
 }
+
+.workdays-year-spinner {
+    -fx-max-width: 75;
+}

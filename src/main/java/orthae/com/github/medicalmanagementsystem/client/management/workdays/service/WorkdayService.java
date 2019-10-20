@@ -8,5 +8,6 @@ public interface WorkdayService {
 
     List<WorkdayDto> getByEmployeeIdAndMonth(int employeeId, int month, int year);
     void createWorkday(int employeeId, WorkdayDto dto);
+    void deleteWorkday(int workdayId);
 
 }

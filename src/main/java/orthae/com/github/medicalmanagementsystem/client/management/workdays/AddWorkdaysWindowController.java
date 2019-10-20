@@ -98,24 +98,37 @@ public class AddWorkdaysWindowController {
 
     private void setupActionListener(){
         yearSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(!oldValue.equals(newValue))
+            if(!oldValue.equals(newValue)){
+               datePicker.setValue(LocalDate.of(getYear(), getMonth(), 1));
                 refreshTable();
+            }
         });
         monthCombobox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if(!oldValue.equals(newValue))
+            if(!oldValue.equals(newValue)){
+                datePicker.setValue(LocalDate.of(getYear(), getMonth(), 1));
                 refreshTable();
+            }
         });
     }
 
     private void setupCalendar(){
         datePicker.setEditable(false);
+        datePicker.setValue(LocalDate.now());
         datePicker.setDayCellFactory(param -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
-                if(item.getMonth().getValue() != monthCombobox.getSelectionModel().getSelectedIndex() + 1 || item.getYear() != yearSpinner.getValue())
+                if(item.getMonth().getValue() != getMonth() || item.getYear() != getYear())
                     setDisable(true);
             }
         });
+    }
+
+    private int getMonth(){
+        return monthCombobox.getSelectionModel().getSelectedIndex() + 1;
+    }
+
+    private int getYear(){
+        return yearSpinner.getValue();
     }
 }

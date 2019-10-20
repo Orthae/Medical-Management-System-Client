@@ -26,4 +26,9 @@ public class WorkdayServiceImpl implements WorkdayService {
     public void createWorkday(int employeeId, WorkdayDto dto) {
         restClient.post("/employees/" + employeeId + "/workdays", 200, dto);
     }
+
+    @Override
+    public void deleteWorkday(int workdayId) {
+        restClient.delete("/employees/workdays/" + workdayId, 200);
+    }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.WorkdaysTableController">
@@ -10,6 +9,7 @@
                 <TableColumn fx:id="dateColumn" text="Date"/>
                 <TableColumn fx:id="startHourColumn" text="Start"/>
                 <TableColumn fx:id="endHourColumn" text="End"/>
+                <TableColumn fx:id="buttonColumn" text="Action"/>
             </columns>
         </TableView>
 
