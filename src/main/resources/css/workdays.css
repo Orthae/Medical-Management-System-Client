@@ -1,4 +1,4 @@
-.workdays-date-field{
+.workdays-date-field {
     -fx-max-width: 105;
 }
 
@@ -12,11 +12,15 @@
     -fx-padding: 5, 5, 5, 5;
 }
 
-.workdays-box {
-    -fx-spacing: 5;
+.workdays-year-spinner {
+    -fx-max-width: 75;
+}
+
+.workdays-table-column {
     -fx-alignment: CENTER;
 }
 
-.workdays-year-spinner {
+.workdays-button {
+    -fx-min-width: 75;
     -fx-max-width: 75;
 }

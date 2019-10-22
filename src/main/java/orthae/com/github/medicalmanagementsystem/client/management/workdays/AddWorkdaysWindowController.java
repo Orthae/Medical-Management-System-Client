@@ -2,7 +2,9 @@ package orthae.com.github.medicalmanagementsystem.client.management.workdays;
 
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,6 @@ import orthae.com.github.medicalmanagementsystem.client.management.workdays.serv
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.List;
 
 @Component
@@ -38,16 +39,11 @@ public class AddWorkdaysWindowController {
     private DatePicker datePicker;
 
     @FXML
-    private Spinner<Integer> startHourSpinner, endHourSpinner, yearSpinner;
-
-    @FXML
-    private ComboBox<String> monthCombobox;
+    private Spinner<Integer> startHourSpinner, endHourSpinner;
 
     public void initialize() {
         setupCalendar();
-        setupCombobox();
         setupSpinners();
-        setupDate();
         setupActionListener();
     }
 
@@ -59,11 +55,11 @@ public class AddWorkdaysWindowController {
     private void setupSpinners() {
         startHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(openHour, closeHour));
         endHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(openHour, closeHour));
-        yearSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1970, 2035, Calendar.getInstance().get(Calendar.YEAR)));
     }
 
     public void initialize(int employeeId) {
         this.employeeId = employeeId;
+        datePicker.setValue(LocalDate.now());
         refreshTable();
     }
 
@@ -75,60 +71,29 @@ public class AddWorkdaysWindowController {
             dto.setEndHour(LocalTime.of(endHourSpinner.getValue(), 0));
             workdayService.createWorkday(employeeId, dto);
             refreshTable();
+            dialogService.infoAlert("Workday created.");
         } catch (Exception e) {
             dialogService.errorAlert(e.getMessage());
         }
     }
 
     private void refreshTable() {
-        int month = monthCombobox.getSelectionModel().getSelectedIndex() + 1;
-        int year = yearSpinner.getValue();
+        int month = datePicker.getValue().getMonth().getValue();
+        int year = datePicker.getValue().getYear();
         List<WorkdayDto> list = workdayService.getByEmployeeIdAndMonth(employeeId, month, year);
         workdaysTableController.setItems(list.toArray(new WorkdayDto[0]));
     }
 
-    private void setupCombobox() {
-        monthCombobox.getItems().addAll("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-    }
-
-    private void setupDate() {
-        yearSpinner.getEditor().setText(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
-        monthCombobox.getSelectionModel().select(Calendar.getInstance().get(Calendar.MONTH));
-    }
 
     private void setupActionListener(){
-        yearSpinner.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if(!oldValue.equals(newValue)){
-               datePicker.setValue(LocalDate.of(getYear(), getMonth(), 1));
+        datePicker.valueProperty().addListener(((observable, oldValue, newValue) -> {
+            if(oldValue.getYear() != newValue.getYear() || oldValue.getMonth().getValue() != newValue.getMonth().getValue())
                 refreshTable();
-            }
-        });
-        monthCombobox.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if(!oldValue.equals(newValue)){
-                datePicker.setValue(LocalDate.of(getYear(), getMonth(), 1));
-                refreshTable();
-            }
-        });
+        }));
     }
 
     private void setupCalendar(){
         datePicker.setEditable(false);
         datePicker.setValue(LocalDate.now());
-        datePicker.setDayCellFactory(param -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-                if(item.getMonth().getValue() != getMonth() || item.getYear() != getYear())
-                    setDisable(true);
-            }
-        });
-    }
-
-    private int getMonth(){
-        return monthCombobox.getSelectionModel().getSelectedIndex() + 1;
-    }
-
-    private int getYear(){
-        return yearSpinner.getValue();
     }
 }

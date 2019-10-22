@@ -2,14 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/workdays.css"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.WorkdaysTableController">
         <TableView fx:id="workdaysTable">
             <columns>
-                <TableColumn fx:id="dateColumn" text="Date"/>
-                <TableColumn fx:id="startHourColumn" text="Start"/>
-                <TableColumn fx:id="endHourColumn" text="End"/>
-                <TableColumn fx:id="buttonColumn" text="Action"/>
+                <TableColumn styleClass="workdays-table-column" fx:id="dateColumn" text="Date"/>
+                <TableColumn styleClass="workdays-table-column" fx:id="startHourColumn" text="Start"/>
+                <TableColumn styleClass="workdays-table-column" fx:id="endHourColumn" text="End"/>
+                <TableColumn styleClass="workdays-table-column" fx:id="buttonColumn" text="Action"/>
             </columns>
         </TableView>
 

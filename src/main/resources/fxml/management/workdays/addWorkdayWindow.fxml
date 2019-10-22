@@ -5,20 +5,17 @@
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/workdays.css"
       fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.AddWorkdaysWindowController">
 
-    <GridPane styleClass="workdays-box">
-            <Label text="Month" GridPane.columnIndex="0"/>
-            <ComboBox fx:id="monthCombobox" GridPane.columnIndex="1"/>
-            <Label text="Year" GridPane.columnIndex="2"/>
-            <Spinner fx:id="yearSpinner" GridPane.columnIndex="3" styleClass="workdays-year-spinner" />
-            <Label text="Date" GridPane.columnIndex="4" />
-            <DatePicker fx:id="datePicker" GridPane.columnIndex="5" styleClass="workdays-date-field" />
-            <Label text="Start" GridPane.columnIndex="6" />
-            <Spinner fx:id="startHourSpinner" GridPane.columnIndex="7" styleClass="workdays-hour-field"/>
-            <Label text="End" GridPane.columnIndex="8" />
-            <Spinner fx:id="endHourSpinner" GridPane.columnIndex="9" styleClass="workdays-hour-field"/>
-        <Button text="add" onAction="#add" GridPane.columnIndex="10"/>
+    <GridPane styleClass="workdays-grid-pane">
+        <Label text="Date" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="datePicker" GridPane.columnIndex="1" styleClass="workdays-date-field"/>
+        <Label text="Start" GridPane.columnIndex="2"/>
+        <Spinner fx:id="startHourSpinner" GridPane.columnIndex="3" styleClass="workdays-hour-field"/>
+        <Label text="End" GridPane.columnIndex="4"/>
+        <Spinner fx:id="endHourSpinner" GridPane.columnIndex="5" styleClass="workdays-hour-field"/>
+        <Button text="Create" onAction="#add" GridPane.columnIndex="6" styleClass="workdays-button"/>
     </GridPane>
-
+    <!--suppress JavaFxUnresolvedFxIdReference -->
+    <!-- bug with including -->
     <fx:include fx:id="workdaysTable" source="workdaysTable.fxml"/>
 
 </VBox>

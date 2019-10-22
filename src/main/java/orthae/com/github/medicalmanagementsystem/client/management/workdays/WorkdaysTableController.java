@@ -44,16 +44,16 @@ public class WorkdaysTableController {
         this.dialogService = dialogService;
     }
 
-    public void initialize(){
+    public void initialize() {
         tableSetup();
     }
 
-    public void setItems(WorkdayDto... items){
+    public void setItems(WorkdayDto... items) {
         workdaysTable.getItems().clear();
         workdaysTable.getItems().addAll(items);
     }
 
-    private void tableSetup(){
+    private void tableSetup() {
         dateColumn.setCellValueFactory(param -> new ObjectBinding<LocalDate>() {
             @Override
             protected LocalDate computeValue() {
@@ -61,7 +61,9 @@ public class WorkdaysTableController {
             }
         });
 
-        startHourColumn.setCellValueFactory( param -> new ObjectBinding<LocalTime>() {
+        startHourColumn.setResizable(false);
+        startHourColumn.setMaxWidth(60);
+        startHourColumn.setCellValueFactory(param -> new ObjectBinding<LocalTime>() {
             @Override
             protected LocalTime computeValue() {
                 return param.getValue().getStartHour();
@@ -69,7 +71,9 @@ public class WorkdaysTableController {
         });
         setupSpinnerColumn(startHourColumn);
 
-        endHourColumn.setCellValueFactory( param -> new ObjectBinding<LocalTime>() {
+        endHourColumn.setResizable(false);
+        endHourColumn.setMaxWidth(60);
+        endHourColumn.setCellValueFactory(param -> new ObjectBinding<LocalTime>() {
             @Override
             protected LocalTime computeValue() {
                 return param.getValue().getEndHour();
@@ -77,31 +81,33 @@ public class WorkdaysTableController {
         });
         setupSpinnerColumn(endHourColumn);
 
+        buttonColumn.setMinWidth(160);
         buttonColumn.setCellValueFactory(param -> new ObjectBinding<Number>() {
             @Override
             protected Number computeValue() {
                 return param.getValue().getId();
             }
         });
-        buttonColumn.setCellFactory(param -> new TableCell<WorkdayDto, Number>(){
+        buttonColumn.setCellFactory(param -> new TableCell<WorkdayDto, Number>() {
             @Override
             protected void updateItem(Number item, boolean empty) {
-                if(empty || getTableRow() == null){
+                if (empty || getTableRow() == null)
                     setGraphic(null);
-                }
                 else {
                     WorkdayDto dto = ((WorkdayDto) getTableRow().getItem());
                     Button updateButton = new Button("Update");
+                    updateButton.setStyle("-fx-min-width: 75");
                     updateButton.setOnAction(event -> updateButtonAction(dto));
                     Button deleteButton = new Button("Delete");
+                    deleteButton.setStyle("-fx-min-width: 75");
                     deleteButton.setOnAction(event -> deleteButtonAction(dto));
-                    setGraphic(new HBox(deleteButton, updateButton));
+                    setGraphic(new HBox(updateButton, deleteButton));
                 }
             }
         });
     }
 
-    private void setupSpinnerColumn(TableColumn<WorkdayDto, LocalTime> column){
+    private void setupSpinnerColumn(TableColumn<WorkdayDto, LocalTime> column) {
         column.setCellFactory(param -> {
             Spinner<Integer> spinner = new Spinner<>();
             return new TableCell<WorkdayDto, LocalTime>() {
@@ -118,23 +124,22 @@ public class WorkdaysTableController {
         });
     }
 
-    private void deleteButtonAction(WorkdayDto dto){
-        try{
+    private void deleteButtonAction(WorkdayDto dto) {
+        try {
             Alert alert = dialogService.warringAlert("Are you sure you want to delete selected workday?");
-            if(alert.getResult() == ButtonType.YES) {
+            if (alert.getResult() == ButtonType.YES) {
                 workdayService.deleteWorkday(dto.getId());
                 workdaysTable.getItems().remove(dto);
-                dialogService.infoAlert("Workday deleted");
+                dialogService.infoAlert("Workday had been deleted.");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             dialogService.errorAlert(e.getMessage());
         }
     }
 
-    private void updateButtonAction(WorkdayDto dto){
+    private void updateButtonAction(WorkdayDto dto) {
 
     }
-
 
 
 }
