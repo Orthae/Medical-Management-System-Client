@@ -29,7 +29,7 @@ public class SessionsWindowController {
     @FXML
     private ComboBox<String> activeCombobox;
 
-
+    //  bugged warning
     @SuppressWarnings("unused")
     @FXML
     private SessionsTableController sessionsTableController;

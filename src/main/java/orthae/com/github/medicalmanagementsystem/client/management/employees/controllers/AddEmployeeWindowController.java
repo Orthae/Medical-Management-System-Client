@@ -16,6 +16,8 @@ public class AddEmployeeWindowController {
     @FXML
     private VBox addEmployeeWindow;
 
+    //  bugged warning
+    @SuppressWarnings("unused")
     @FXML
     private EmployeeCredentialsFieldsController employeeCredentialsFieldsController;
 

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="/css/workdays.css"
-      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.AddWorkdaysWindowController">
+      fx:controller="orthae.com.github.medicalmanagementsystem.client.management.workdays.WorkdaysWindowController">
 
     <GridPane styleClass="workdays-grid-pane">
         <Label text="Date" GridPane.columnIndex="0"/>
@@ -15,7 +15,7 @@
         <Button text="Create" onAction="#add" GridPane.columnIndex="6" styleClass="workdays-button"/>
     </GridPane>
     <!--suppress JavaFxUnresolvedFxIdReference -->
-    <!-- bug with including -->
+    <!-- bugged warning -->
     <fx:include fx:id="workdaysTable" source="workdaysTable.fxml"/>
 
 </VBox>

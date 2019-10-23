@@ -9,6 +9,7 @@
       stylesheets="/css/employees.css" styleClass="add-edit-window">
     <Label text="Edit employee"/>
     <!--suppress JavaFxUnresolvedFxIdReference -->
+    <!-- bugged warning -->
     <fx:include fx:id="employeeCredentialsFields" source="employeeCredentialsFields.fxml"/>
     <HBox styleClass="add-edit-button-box">
         <Button text="Edit" styleClass="employees-button" onAction="#edit"/>

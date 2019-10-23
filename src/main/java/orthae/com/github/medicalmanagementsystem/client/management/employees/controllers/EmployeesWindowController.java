@@ -14,7 +14,7 @@ import orthae.com.github.medicalmanagementsystem.client.management.employees.dto
 import orthae.com.github.medicalmanagementsystem.client.management.employees.service.EmployeesService;
 import orthae.com.github.medicalmanagementsystem.client.management.sessions.SessionsTableController;
 import orthae.com.github.medicalmanagementsystem.client.management.sessions.service.SessionService;
-import orthae.com.github.medicalmanagementsystem.client.management.workdays.AddWorkdaysWindowController;
+import orthae.com.github.medicalmanagementsystem.client.management.workdays.WorkdaysWindowController;
 
 @Component
 public class EmployeesWindowController {
@@ -260,7 +260,7 @@ public class EmployeesWindowController {
             EmployeeDto dto = getSelected();
             FXMLLoader loader = dialogService.fxmlLoader("/fxml/management/workdays/addWorkdayWindow.fxml");
             Stage stage = dialogService.stageSetup(loader, employeesWindow.getScene().getWindow());
-            AddWorkdaysWindowController controller = loader.getController();
+            WorkdaysWindowController controller = loader.getController();
             controller.initialize(dto.getId());
             stage.showAndWait();
         } catch (Exception e){

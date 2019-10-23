@@ -21,6 +21,7 @@
         <Button onAction="#clear" text="Clear" GridPane.columnIndex="11"/>
     </GridPane>
     <!--suppress JavaFxUnresolvedFxIdReference -->
+    <!-- bugged warning -->
     <fx:include fx:id="sessionsTable" source="sessionsTable.fxml" VBox.vgrow="ALWAYS"/>
 
 </VBox>
